@@ -1,5 +1,6 @@
 import TravelRecommender from "./model.js";
 
+// Variable para rastrear si los event listeners ya están configurados
 let listenersInitialized = false;
 let recommender = null;
 const ACCESS_KEY = "2cmDGYcpKM2Hexq8AZjD2GE34qKwY_l96jxElLXbUEw";
@@ -83,6 +84,7 @@ async function buscarImagenes(lugar) {
   return "/img/placeholder.jpg";
 }
 
+// Variable para controlar múltiples envíos del formulario
 let isProcessingRecommendations = false;
 
 async function mostrarRecomendaciones(recomendaciones) {
@@ -96,19 +98,20 @@ async function mostrarRecomendaciones(recomendaciones) {
   isProcessingRecommendations = true;
 
   const container = document.getElementById("recomendaciones");
-
+  // Limpiar el contenedor antes de añadir nuevas recomendaciones
   container.innerHTML = "";
   container.style.display = "grid";
+  // Eliminar clases anteriores
   container.className = "recommendations-container";
 
   if (!recomendaciones || recomendaciones.length === 0) {
     container.classList.add("recommendations-1");
     container.innerHTML = `
             <div class="card-recomendacion no-results-card">
-                <div class="card-recomendacion-content" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%;">
-                    <div class="info-container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; width: 100%;">
-                        <h3 style="text-align: center; width: 100%;">Oh no, lo sentimos. No se encontraron destinos.</h3>
-                        <p style="text-align: center; width: 100%;">Intenta ajustando los criterios de búsqueda.</p>
+                <div class="card-recomendacion-content">
+                    <div class="info-container">
+                        <h3>Oh no, lo sentimos. No se encontraron destinos.</h3>
+                        <p>Intenta ajustando los criterios de búsqueda.</p>
                     </div>
                 </div>
             </div>
@@ -118,6 +121,7 @@ async function mostrarRecomendaciones(recomendaciones) {
     return;
   }
 
+  // Añadir la clase según la cantidad de recomendaciones
   container.classList.add(`recommendations-${recomendaciones.length}`);
 
   // Usar Promise.all para esperar todas las búsquedas de imágenes en paralelo
@@ -167,11 +171,13 @@ async function mostrarRecomendaciones(recomendaciones) {
       })
     );
 
+    // Añadir todas las cards al contenedor de una vez
     container.innerHTML = cards.join("");
   } catch (error) {
     console.error("Error al crear tarjetas:", error);
   }
 
+  // Hacer visible el contenedor
   container.classList.add("visible");
   isProcessingRecommendations = false;
 }
@@ -183,10 +189,12 @@ function setupEventListeners() {
   const ciudadSelect = document.getElementById("ciudad");
   const form = document.getElementById("recommendationForm");
 
+  // Limpiar listeners anteriores si existieran
   regionSelect.removeEventListener("change", handleRegionChange);
   paisSelect.removeEventListener("change", handlePaisChange);
   form.removeEventListener("submit", handleFormSubmit);
 
+  // Añadir nuevos listeners
   regionSelect.addEventListener("change", handleRegionChange);
   paisSelect.addEventListener("change", handlePaisChange);
   form.addEventListener("submit", handleFormSubmit);
@@ -197,6 +205,7 @@ function setupEventListeners() {
   console.log("Event listeners configurados correctamente.");
 }
 
+// Funciones separadas para cada manejador de eventos
 function handleRegionChange() {
   const selectedRegion = this.value;
   console.log("Región seleccionada:", selectedRegion);
@@ -279,35 +288,40 @@ async function handleFormSubmit(e) {
   await mostrarRecomendaciones(recomendaciones);
 }
 
-// Manejador para eventos táctiles
-function handleTouchStart(e) {
-  const card = e.target.closest(".card, .card-recomendacion");
-  if (card) {
-    document
-      .querySelectorAll(".card.active, .card-recomendacion.active")
-      .forEach((el) => {
-        if (el !== card) el.classList.remove("active");
-      });
-
-    card.classList.toggle("active");
-
-    // Prevenir comportamiento hover fantasma
-    e.preventDefault();
-  }
-}
-
 // Función para mejorar interacción táctil con las cards
 function setupTouchInteractions() {
-  const addTouchClass = () => {
-    if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
-      document.body.classList.add("touch-device");
-    }
-  };
+  document.addEventListener("DOMContentLoaded", () => {
+    const addTouchClass = () => {
+      if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
+        document.body.classList.add("touch-device");
+      }
+    };
 
-  addTouchClass();
+    addTouchClass();
 
-  document.removeEventListener("touchstart", handleTouchStart);
-  document.addEventListener("touchstart", handleTouchStart, { passive: false });
+    // Delegación de eventos para manejar toques en cards
+    document.addEventListener(
+      "touchstart",
+      function (e) {
+        const card = e.target.closest(".card, .card-recomendacion");
+        if (card) {
+          // Eliminar clase active de todas las cards
+          document
+            .querySelectorAll(".card.active, .card-recomendacion.active")
+            .forEach((el) => {
+              if (el !== card) el.classList.remove("active");
+            });
+
+          // Toggle clase active en la card tocada
+          card.classList.toggle("active");
+
+          // Prevenir comportamiento hover fantasma
+          e.preventDefault();
+        }
+      },
+      { passive: false }
+    );
+  });
 }
 
 // Header scroll effect
@@ -325,16 +339,10 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Variable para controlar que la inicialización se ejecute solo una vez
-let initialized = false;
-
 // Inicializar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", () => {
-  if (!initialized) {
-    console.log("DOM cargado, inicializando recomendador...");
-    initializeRecommender();
-    initialized = true;
-  }
+  console.log("DOM cargado, inicializando recomendador...");
+  initializeRecommender();
 });
 
 // Reiniciar estado si la página se recarga o vuelve a la navegación
@@ -344,7 +352,6 @@ window.addEventListener("pageshow", (event) => {
     recommender = null;
     listenersInitialized = false;
     isProcessingRecommendations = false;
-    initialized = false;
     initializeRecommender();
   }
 });
