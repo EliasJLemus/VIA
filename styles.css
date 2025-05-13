@@ -1,3 +1,4 @@
+/* ESTILOS COMPARTIDOS PARA AMBAS VERSIONES */
 :root {
   --primary-color: #0080ff;
   --secondary-color: #00ff80;
@@ -136,41 +137,22 @@ body {
   font-weight: 700;
 }
 
-/* Hero Section */
+/* Hero Section - Común */
 .hero {
   height: 100vh;
   background-image: url("img/travel.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
   margin-bottom: 100px;
-  border-radius: 0 0 100px 100px;
   box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
   will-change: transform;
   font-weight: 500;
-}
-
-@media (min-width: 1025px) {
-  .hero {
-    animation: zoomEffect 20s infinite alternate;
-    background-size: 120% auto;
-  }
-
-  @keyframes zoomEffect {
-    0%,
-    100% {
-      background-size: 120% auto;
-    }
-    50% {
-      background-size: 140% auto;
-    }
-  }
 }
 
 .hero::before {
@@ -181,7 +163,6 @@ body {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
-  border-radius: 0 0 100px 100px;
 }
 
 .hero-content {
@@ -214,7 +195,6 @@ body {
 }
 
 .animated-phrase {
-  font-size: 4.5rem;
   position: absolute;
   width: 100%;
   text-align: center;
@@ -228,16 +208,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 200px;
-}
-
-.animated-phrase:nth-child(4) {
-  animation-delay: 15s;
-  font-size: 5rem;
-  white-space: nowrap;
-  display: inline-flex;
-  justify-content: center;
-  flex-wrap: nowrap;
 }
 
 .animated-phrase .logo-text {
@@ -277,6 +247,10 @@ body {
   animation-delay: 10s;
 }
 
+.animated-phrase:nth-child(4) {
+  animation-delay: 15s;
+}
+
 .scroll-area {
   position: absolute;
   bottom: 35px;
@@ -294,8 +268,6 @@ body {
 
 .scroll-text {
   color: var(--text-color);
-  font-size: 0.9rem;
-  opacity: 0.8;
   font-weight: 400;
   text-align: center;
   margin-bottom: 4px;
@@ -307,18 +279,30 @@ body {
   line-height: 0;
 }
 
-/* Feature Cards */
+/* Sections - Común */
 .features {
   padding: 4rem 0;
 }
 
-.feature-cards {
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
+.recommendation-section {
+  padding: 4rem 0;
 }
 
-/* Card styles compartidos (para feature cards y cards de recomendación) */
+.section-title {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+}
+
+.recommendation-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+/* Cards Básico - Común */
 .card,
 .card-recomendacion,
 .no-results-card {
@@ -328,81 +312,6 @@ body {
   transition: var(--transition);
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
   position: relative;
-}
-
-.card {
-  flex: 1;
-  animation: float 6s ease-in-out infinite;
-}
-
-/* Pseudo-elemento para el efecto hover/active */
-.card::before,
-.card-recomendacion::before,
-.no-results-card::before,
-.form-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--gradient-hover);
-  opacity: 0;
-  transition: var(--transition);
-  border-radius: 15px;
-  pointer-events: none;
-}
-
-/* Efecto hover para desktop */
-@media (hover: hover) and (pointer: fine) {
-  .card:hover,
-  .card-recomendacion:hover,
-  .no-results-card:hover,
-  .form-container:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-  }
-
-  .card:hover::before,
-  .card-recomendacion:hover::before,
-  .no-results-card:hover::before,
-  .form-container:hover::before {
-    opacity: 1;
-  }
-
-  .card:hover .card-image,
-  .card-recomendacion:hover img {
-    filter: brightness(1.1);
-  }
-}
-
-/* Clase activa para dispositivos táctiles */
-.touch-device .card.active,
-.touch-device .card-recomendacion.active,
-.touch-device .no-results-card.active,
-.touch-device .form-container.active {
-  transform: translateY(-10px);
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-}
-
-.touch-device .card.active::before,
-.touch-device .card-recomendacion.active::before,
-.touch-device .no-results-card.active::before,
-.touch-device .form-container.active::before {
-  opacity: 1;
-}
-
-.touch-device .card.active .card-image,
-.touch-device .card-recomendacion.active img {
-  filter: brightness(1.1);
-}
-
-.card-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  transition: var(--transition);
-  filter: brightness(0.95);
 }
 
 .card-content {
@@ -415,37 +324,36 @@ body {
   color: var(--primary-color);
 }
 
-/* Recommendation Section */
-.recommendation-section {
-  padding: 4rem 0;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  color: var(--primary-color);
-}
-
-.recommendation-content {
+/* Botón de Google - COMÚN para ambas versiones */
+.google-search-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #1e1e1e;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  text-decoration: none; /* Importante para los enlaces <a> */
 }
 
-.form-container {
+.google-search-btn img {
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  background: var(--card-bg);
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-  transition: var(--transition);
-  position: relative;
+  height: 100%;
+  object-fit: contain;
+  max-width: 18px;
+  max-height: 18px;
 }
 
+/* Form - Común */
 form {
   display: flex;
   flex-direction: column;
@@ -494,98 +402,7 @@ button:hover {
   background: #0066cc;
 }
 
-/* Recommendations Container */
-.recommendations-container {
-  width: 100%;
-  display: grid;
-  gap: 2rem;
-  margin-top: 3rem;
-  justify-content: center;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s ease;
-}
-
-.recommendations-1 {
-  grid-template-columns: 320px;
-}
-
-.recommendations-2 {
-  grid-template-columns: repeat(2, 320px);
-}
-
-.recommendations-3 {
-  grid-template-columns: repeat(3, 320px);
-}
-
-.recommendations-container.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Card de recomendación */
-.card-recomendacion,
-.no-results-card {
-  width: 320px;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  animation: float 6s ease-in-out infinite;
-  line-height: 1.2;
-}
-
-/* Botón de Google actualizado */
-.google-search-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #1e1e1e;
-  border: none;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 10;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  padding: 8px;
-}
-
-.google-search-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-  background: #1e1e1e;
-}
-
-.google-search-btn img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  max-width: 18px;
-  max-height: 18px;
-}
-
-.card-recomendacion img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  transition: var(--transition);
-  filter: brightness(0.95);
-}
-
-.card-recomendacion-content {
-  padding: 1.2rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 130px;
-  position: relative;
-  overflow-y: auto;
-}
-
+/* Tarjetas de recomendación info básica - Común */
 .info-container {
   display: flex;
   flex-direction: column;
@@ -594,7 +411,6 @@ button:hover {
 
 .destination-title {
   color: var(--primary-color);
-  font-size: 1.5rem;
   margin-bottom: 0.2rem;
   line-height: 1.2;
 }
@@ -608,19 +424,16 @@ button:hover {
 
 .stars {
   color: var(--tertiary-color);
-  font-size: 1.2rem;
   letter-spacing: 2px;
 }
 
 .rating-value {
   color: var(--text-color);
-  font-size: 0.9rem;
   opacity: 0.9;
 }
 
 .destination-meta {
   color: var(--text-color);
-  font-size: 1rem;
   display: flex;
   align-items: center;
   line-height: 1.2;
@@ -632,26 +445,7 @@ button:hover {
   opacity: 0.7;
 }
 
-.no-results-card {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 2rem;
-}
-
-.no-results-card h3 {
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-}
-
-.no-results-card p {
-  color: var(--text-color);
-  opacity: 0.8;
-}
-
-/* Footer */
+/* Footer - Común */
 .footer {
   position: relative;
   background: linear-gradient(
@@ -668,7 +462,6 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 100% 100% 0 0;
 }
 
 .footer::before {
@@ -679,7 +472,6 @@ button:hover {
   right: 0;
   bottom: 0;
   background: inherit;
-  border-radius: 100% 100% 0 0;
   box-shadow: 0 -10px 30px rgba(255, 255, 255, 0.1);
   z-index: -1;
 }
@@ -706,7 +498,7 @@ button:hover {
   font-family: "Montserrat", sans-serif;
 }
 
-/* Animations */
+/* Animaciones - Común */
 @keyframes bounce {
   0%,
   20%,
@@ -744,36 +536,317 @@ button:hover {
   }
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
+/* Accessibility - Común */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus Styles - Común */
+a:focus,
+button:focus,
+input:focus,
+select:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Print Styles - Común */
+@media print {
+  .hero,
+  .scroll-indicator,
+  .footer {
+    display: none;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  .card,
+  .form-container {
+    box-shadow: none;
+    border: 1px solid #000000;
+  }
+}
+
+/******************************************
+ * VERSIÓN DESKTOP (min-width: 769px)
+ ******************************************/
+@media (min-width: 769px) {
+  /* Responsive scrollbar */
+  ::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  @media (max-width: 1024px) {
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+  }
+
+  /* Hero Section */
+  .hero {
+    background-attachment: fixed;
+    border-radius: 0 0 100px 100px;
+  }
+
+  .hero::before {
+    border-radius: 0 0 100px 100px;
+  }
+
+  @media (min-width: 1025px) {
+    .hero {
+      animation: zoomEffect 20s infinite alternate;
+      background-size: 120% auto;
+    }
+
+    @keyframes zoomEffect {
+      0%,
+      100% {
+        background-size: 120% auto;
+      }
+      50% {
+        background-size: 140% auto;
+      }
+    }
+  }
+
+  .animated-phrase {
+    font-size: 4.5rem;
+    min-height: 200px;
+  }
+
+  .animated-phrase:nth-child(4) {
+    font-size: 5rem;
+    white-space: nowrap;
+    display: inline-flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+
+  .scroll-text {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  /* Feature Cards */
+  .feature-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .card {
+    flex: 1;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Card Images */
+  .card-image,
+  .card-recomendacion img:not(.google-search-btn img) {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: var(--transition);
+    filter: brightness(0.95);
+  }
+
+  /* Pseudo-elemento para el efecto hover */
+  .card::before,
+  .card-recomendacion::before,
+  .no-results-card::before,
+  .form-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-hover);
+    opacity: 0;
+    transition: var(--transition);
+    border-radius: 15px;
+    pointer-events: none;
+  }
+
+  /* Efecto hover para desktop */
+  .card:hover,
+  .card-recomendacion:hover,
+  .no-results-card:hover,
+  .form-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  }
+
+  .card:hover::before,
+  .card-recomendacion:hover::before,
+  .no-results-card:hover::before,
+  .form-container:hover::before {
+    opacity: 1;
+  }
+
+  .card:hover .card-image,
+  .card-recomendacion:hover img:not(.google-search-btn img) {
+    filter: brightness(1.1);
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+  }
+
+  /* Botón de Google - Específico para desktop */
+  .google-search-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Form */
+  .form-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Recommendations Container */
+  .recommendations-container {
+    width: 100%;
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+  }
+
+  .recommendations-1 {
+    grid-template-columns: 320px;
+  }
+
+  .recommendations-2 {
+    grid-template-columns: repeat(2, 320px);
+  }
+
+  .recommendations-3 {
+    grid-template-columns: repeat(3, 320px);
+  }
+
+  @media (max-width: 1024px) {
+    .recommendations-3 {
+      grid-template-columns: repeat(2, 320px);
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+  }
+
+  .recommendations-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Card de recomendación */
+  .card-recomendacion,
+  .no-results-card {
+    width: 320px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    animation: float 6s ease-in-out infinite;
+    line-height: 1.2;
+  }
+
+  .card-recomendacion-content {
+    padding: 1.2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 130px;
+    position: relative;
+    overflow-y: auto;
+  }
+
+  .destination-title {
+    font-size: 1.5rem;
+  }
+
+  .stars {
+    font-size: 1.2rem;
+  }
+
+  .rating-value {
+    font-size: 0.9rem;
+  }
+
+  .destination-meta {
+    font-size: 1rem;
+  }
+
+  .no-results-card {
+    width: 320px;
+    height: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .no-results-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .no-results-card p {
+    color: var(--text-color);
+    opacity: 0.8;
+  }
+
+  /* Footer */
+  .footer {
+    border-radius: 100% 100% 0 0;
+  }
+
+  .footer::before {
+    border-radius: 100% 100% 0 0;
+  }
+}
+
+/******************************************
+ * VERSIÓN MÓVIL (max-width: 768px)
+ ******************************************/
+@media (max-width: 768px) {
+  /* Responsive scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Hero Section */
   .hero {
     background-attachment: scroll;
     background-size: cover;
     animation: none;
     background-position: center;
-  }
-
-  .animated-phrase {
-    font-size: 3.8rem;
-  }
-
-  .animated-phrase:nth-child(4) {
-    font-size: 4rem;
-    white-space: normal;
-    flex-wrap: wrap;
-  }
-
-  .recommendations-3 {
-    grid-template-columns: repeat(2, 320px);
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero {
     border-radius: 0 0 50px 50px;
   }
 
@@ -788,25 +861,161 @@ button:hover {
 
   .animated-phrase:nth-child(4) {
     font-size: 3.2rem;
+    white-space: normal;
+    flex-wrap: wrap;
   }
 
+  .scroll-text {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  /* Section titles */
+  .section-title {
+    font-size: 2rem;
+  }
+
+  /* Feature Cards */
   .feature-cards {
+    display: flex;
     flex-direction: column;
+    gap: 2rem;
   }
 
   .card {
     width: 100%;
+    margin-bottom: 1rem;
   }
 
-  .recommendations-2,
-  .recommendations-3 {
-    grid-template-columns: 320px;
+  /* Versión móvil: evitamos las animaciones float */
+  .card,
+  .card-recomendacion,
+  .no-results-card,
+  .form-container {
+    animation: none;
   }
 
+  /* Botón de Google para MÓVIL - CRÍTICO */
+  .google-search-btn {
+    /* Mantenemos propiedades principales pero aumentamos z-index */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 100 !important;
+    /* Garantizamos que sea clickeable */
+    pointer-events: auto !important;
+    /* No cambiamos el tamaño para evitar que se vea mal */
+  }
+
+  .google-search-btn:active {
+    transform: scale(0.95);
+  }
+
+  /* Imágenes */
+  .card-image,
+  .card-recomendacion img:not(.google-search-btn img) {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    filter: brightness(0.95);
+  }
+
+  /* Diseño alternativo para tarjetas en móvil */
+  .card-content {
+    padding: 1.2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Pseudo-elementos - mantenemos más sencillos para móvil */
+  .card::before,
+  .card-recomendacion::before,
+  .no-results-card::before,
+  .form-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-hover);
+    opacity: 0;
+    transition: var(--transition);
+    border-radius: 15px;
+    pointer-events: none;
+    z-index: 1; /* Por debajo del contenido y botones */
+  }
+
+  /* Estado activo en móvil - más sutil */
+  .card:active,
+  .card-recomendacion:active,
+  .no-results-card:active,
+  .form-container:active,
+  .touch-device .card.active,
+  .touch-device .card-recomendacion.active,
+  .touch-device .no-results-card.active,
+  .touch-device .form-container.active {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+  }
+
+  .card:active::before,
+  .card-recomendacion:active::before,
+  .no-results-card:active::before,
+  .form-container:active::before,
+  .touch-device .card.active::before,
+  .touch-device .card-recomendacion.active::before,
+  .touch-device .no-results-card.active::before,
+  .touch-device .form-container.active::before {
+    opacity: 0.7;
+  }
+
+  /* Form */
+  .form-container {
+    width: 100%;
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    position: relative;
+  }
+
+  /* Recommendations Container */
+  .recommendations-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+  }
+
+  .recommendations-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Card de recomendación */
   .card-recomendacion,
   .no-results-card {
     width: 100%;
     height: 350px;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .card-recomendacion-content {
+    padding: 1.2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-y: auto;
+    z-index: 2; /* Por encima del pseudo-elemento */
   }
 
   .destination-title {
@@ -824,121 +1033,118 @@ button:hover {
   .destination-meta {
     font-size: 0.88rem;
   }
-}
 
-@media (max-width: 480px) {
-  .animated-phrase {
-    font-size: 2.2rem;
-    min-height: 120px;
-  }
-
-  .animated-phrase:nth-child(4) {
-    font-size: 2.4rem;
-  }
-
-  .card-recomendacion,
   .no-results-card {
-    height: 320px;
+    height: 350px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem;
   }
 
-  .destination-title {
-    font-size: 1.2rem;
+  .no-results-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
   }
 
-  .stars {
-    font-size: 1rem;
+  .no-results-card p {
+    color: var(--text-color);
+    opacity: 0.8;
+    font-size: 0.95rem;
   }
 
-  .rating-value {
-    font-size: 0.8rem;
-  }
-
-  .destination-meta {
-    font-size: 0.85rem;
-  }
-
-  .google-search-btn {
-    width: 32px;
-    height: 32px;
-    padding: 6px;
-  }
-
-  .google-search-btn img {
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    max-height: none;
-  }
-
-  .phrase-container {
-    max-width: 95%;
-  }
-
-  .card {
-    height: 320px;
-  }
-
-  .card-image {
-    height: 160px;
-  }
-
-  .hero {
-    background-size: cover;
-  }
-
-  .hero::before {
-    background: rgba(0, 0, 0, 0.6);
-  }
-
-  .scroll-area {
-    bottom: 20px;
-    gap: 30px;
-    padding-bottom: 15px;
-  }
-
-  .scroll-text {
-    font-size: 0.8rem;
-  }
-}
-
-/* Accessibility */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* Focus Styles */
-a:focus,
-button:focus,
-input:focus,
-select:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-/* Print Styles */
-@media print {
-  .hero,
-  .scroll-indicator,
+  /* Footer */
   .footer {
-    display: none;
+    border-radius: 50% 50% 0 0;
   }
 
-  body {
-    background-color: #ffffff;
-    color: #000000;
+  .footer::before {
+    border-radius: 50% 50% 0 0;
   }
 
-  .card,
-  .form-container {
-    box-shadow: none;
-    border: 1px solid #000000;
+  /* Ajustes específicos para móviles más pequeños */
+  @media (max-width: 480px) {
+    .hero {
+      border-radius: 0 0 30px 30px;
+    }
+
+    .hero::before {
+      border-radius: 0 0 30px 30px;
+    }
+
+    .animated-phrase {
+      font-size: 2.2rem;
+      min-height: 120px;
+    }
+
+    .animated-phrase:nth-child(4) {
+      font-size: 2.4rem;
+    }
+
+    .card-recomendacion,
+    .no-results-card {
+      height: 320px;
+    }
+
+    .card-image,
+    .card-recomendacion img:not(.google-search-btn img) {
+      height: 160px;
+    }
+
+    .destination-title {
+      font-size: 1.2rem;
+    }
+
+    .stars {
+      font-size: 1rem;
+    }
+
+    .rating-value {
+      font-size: 0.8rem;
+    }
+
+    .destination-meta {
+      font-size: 0.85rem;
+    }
+
+    .scroll-area {
+      bottom: 20px;
+      gap: 20px;
+      padding-bottom: 15px;
+    }
+
+    .scroll-text {
+      font-size: 0.8rem;
+    }
+
+    .form-container {
+      padding: 1.2rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+    }
+
+    .footer {
+      border-radius: 35% 35% 0 0;
+    }
+
+    .footer::before {
+      border-radius: 35% 35% 0 0;
+    }
+
+    /* Tarjetas más compactas para móviles pequeños */
+    .card {
+      height: auto;
+      margin-bottom: 1rem;
+    }
+
+    .card-content {
+      padding: 1.2rem;
+    }
   }
 }
