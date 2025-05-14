@@ -14,14 +14,14 @@
     rgba(247, 218, 0, 0.1)
   );
   /* Nuevas variables para efectos */
-  --glow-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  --glow-shadow: 0 0 15px rgba(0, 128, 255, 0.5),
+    0 0 25px rgba(0, 255, 128, 0.3), 0 0 35px rgba(247, 218, 0, 0.2);
   --card-hover-transform: translateY(-10px) scale(1.02);
-  --futuristic-glow: 0 0 10px var(--secondary-color),
-    0 0 20px var(--tertiary-color);
-  --selection-gradient: linear-gradient(
-    45deg,
-    rgba(0, 255, 128, 0.5),
-    rgba(247, 218, 0, 0.5)
+  --footer-gradient: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color),
+    var(--tertiary-color)
   );
 }
 
@@ -44,11 +44,7 @@
   background: var(--primary-color);
   border-radius: 5px;
   /* Mejora: Añadir gradiente al scrollbar */
-  background: linear-gradient(
-    180deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
+  background: var(--footer-gradient);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -83,11 +79,7 @@
   background: var(--primary-color);
   border-radius: 3px;
   /* Mejora: Añadir gradiente al scrollbar interno */
-  background: linear-gradient(
-    180deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
+  background: var(--footer-gradient);
 }
 
 .info-container::-webkit-scrollbar-thumb:hover,
@@ -110,11 +102,10 @@ body {
   transition: background 1s ease;
 }
 
-/* Cambiar la selección de texto a los colores secundario y terciario */
+/* Cambiar la selección de texto a los colores del footer */
 ::selection {
-  background: var(--selection-gradient);
+  background: rgba(0, 128, 255, 0.5);
   color: #fff;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .container {
@@ -152,7 +143,7 @@ body {
   transform: translateY(0);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
-  /* Efecto de brillo futurista armonioso */
+  /* Mejora: Efecto de brillo futurista mejorado - mantiene el estilo del logo */
   filter: drop-shadow(0 0 8px var(--primary-color));
 }
 
@@ -168,7 +159,7 @@ body {
   font-family: "Orbitron", sans-serif;
   font-weight: 700;
   /* Mejora: Efecto de brillo futurista */
-  animation: glowEffect 5s infinite alternate;
+  filter: drop-shadow(0 0 5px var(--primary-color));
 }
 
 .logo-ia,
@@ -188,16 +179,6 @@ body {
 }
 
 /* Animaciones para el logo */
-@keyframes glowEffect {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 5px var(--primary-color));
-  }
-  50% {
-    filter: drop-shadow(0 0 15px var(--primary-color));
-  }
-}
-
 @keyframes gradientShift {
   0% {
     background: linear-gradient(
@@ -350,10 +331,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Mejora: Añadir sombra para mejorar legibilidad */
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-  /* Mejora: Efecto de glow blanco */
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+  /* Quitando sombras de los textos como solicitado */
+  text-shadow: none;
 }
 
 .animated-phrase .logo-text {
@@ -421,7 +400,7 @@ body {
   padding-bottom: 15px;
 }
 
-/* Dejamos el scroll text como estaba originalmente */
+/* Scroll text como estaba originalmente */
 .scroll-text {
   color: var(--text-color);
   font-weight: 400;
@@ -433,9 +412,9 @@ body {
   animation: bounce 2s infinite;
   color: var(--text-color);
   line-height: 0;
-  /* Mejora: Efecto de brillo con los colores secundario y terciario */
-  filter: drop-shadow(0 0 5px var(--secondary-color))
-    drop-shadow(0 0 8px var(--tertiary-color));
+  /* Sombra usando degradado del footer */
+  filter: drop-shadow(0 0 5px var(--primary-color))
+    drop-shadow(0 0 8px var(--secondary-color));
 }
 
 /* Sections - Común */
@@ -457,7 +436,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   padding-bottom: 10px;
-  /* Eliminamos el subrayado degradado */
+  /* Quitamos el subrayado degradado como solicitado */
 }
 
 .recommendation-content {
@@ -494,10 +473,10 @@ body {
   transition: color 0.3s ease;
 }
 
-/* Mejora: Efecto de brillo en títulos al hover usando colores secundario y terciario */
+/* Efecto de brillo en títulos al hover usando el degradado del footer */
 .card:hover h3 {
   color: var(--secondary-color);
-  text-shadow: 0 0 5px var(--tertiary-color);
+  text-shadow: 0 0 5px var(--primary-color);
 }
 
 /* Botón de Google - COMÚN para ambas versiones */
@@ -589,13 +568,13 @@ input:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* Estilo de selección para form elements */
+/* Estilo de selección para form elements usando degradado del footer */
 select:focus,
 input:focus {
   background: rgba(0, 0, 0, 0.2);
-  border: 1px solid transparent;
-  border-color: var(--secondary-color);
-  box-shadow: 0 0 0 1px var(--secondary-color), 0 0 10px var(--tertiary-color);
+  border: 1px solid var(--primary-color);
+  box-shadow: 0 0 0 1px var(--primary-color), 0 0 10px var(--secondary-color),
+    0 0 15px var(--tertiary-color);
   outline: none;
 }
 
@@ -623,16 +602,12 @@ select option {
 }
 
 button {
-  background: linear-gradient(
-    45deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
+  background: var(--footer-gradient);
   color: #ffffff;
   cursor: pointer;
   font-weight: bold;
-  /* Mejora: Efecto de brillo */
-  box-shadow: 0 0 10px rgba(0, 255, 128, 0.2);
+  /* Mejora: Efecto de brillo usando degradado del footer */
+  box-shadow: 0 0 10px rgba(0, 128, 255, 0.2);
   position: relative;
   overflow: hidden;
   border: none;
@@ -658,8 +633,8 @@ button:active::after {
 }
 
 button:hover {
-  /* Mejora: Brillo al hover con los colores secundario y terciario */
-  box-shadow: 0 0 15px var(--secondary-color), 0 0 25px var(--tertiary-color);
+  /* Mejora: Brillo al hover usando el degradado del footer */
+  box-shadow: var(--glow-shadow);
   transform: scale(1.02);
 }
 
@@ -678,10 +653,10 @@ button:hover {
   transition: all 0.3s ease;
 }
 
-/* Mejora: Efecto hover en título de destino */
+/* Mejora: Efecto hover en título de destino usando degradado del footer */
 .card-recomendacion:hover .destination-title {
   color: var(--secondary-color);
-  text-shadow: 0 0 8px var(--tertiary-color);
+  text-shadow: 0 0 8px var(--primary-color);
 }
 
 .stars-container {
@@ -727,15 +702,10 @@ button:hover {
   opacity: 0.7;
 }
 
-/* Footer - Común */
+/* Footer - Común - Manteniendo el efecto original */
 .footer {
   position: relative;
-  background: linear-gradient(
-    to right,
-    var(--primary-color),
-    var(--secondary-color),
-    var(--tertiary-color)
-  );
+  background: var(--footer-gradient);
   color: var(--background-dark);
   text-align: center;
   padding: 0.6rem;
@@ -808,11 +778,11 @@ button:hover {
   line-height: 1.3;
 }
 
+/* Restaurando la versión original del VIA en el footer */
 .footer-via {
   color: var(--background-dark);
   font-weight: 700;
   font-family: "Orbitron", sans-serif;
-  /* Quitamos el sombreado según lo solicitado */
 }
 
 .footer-dot {
@@ -863,10 +833,10 @@ button:hover {
 @keyframes glow {
   0%,
   100% {
-    box-shadow: 0 0 5px rgba(0, 255, 128, 0.3);
+    box-shadow: 0 0 5px var(--primary-color);
   }
   50% {
-    box-shadow: 0 0 20px rgba(247, 218, 0, 0.6);
+    box-shadow: 0 0 20px var(--secondary-color), 0 0 30px var(--tertiary-color);
   }
 }
 
@@ -889,8 +859,9 @@ button:focus,
 input:focus,
 select:focus {
   outline: none;
-  /* Cambiamos a colores secundario y terciario */
-  box-shadow: 0 0 0 2px var(--secondary-color), 0 0 0 4px rgba(247, 218, 0, 0.3);
+  /* Sombras usando los colores del degradado del footer */
+  box-shadow: 0 0 0 2px var(--primary-color), 0 0 0 4px rgba(0, 255, 128, 0.3),
+    0 0 0 6px rgba(247, 218, 0, 0.2);
 }
 
 /* Print Styles - Común */
@@ -1021,8 +992,13 @@ select:focus {
     left: 0;
     right: 0;
     bottom: 0;
-    /* Cambiamos a colores secundario y terciario */
-    background: var(--selection-gradient);
+    /* Usando el degradado del footer como solicitado */
+    background: linear-gradient(
+      45deg,
+      rgba(0, 128, 255, 0.1),
+      rgba(0, 255, 128, 0.1),
+      rgba(247, 218, 0, 0.1)
+    );
     opacity: 0;
     transition: var(--transition);
     border-radius: 15px;
@@ -1035,7 +1011,7 @@ select:focus {
   .no-results-card:hover,
   .form-container:hover {
     transform: var(--card-hover-transform);
-    box-shadow: var(--futuristic-glow);
+    box-shadow: var(--glow-shadow);
   }
 
   .card:hover::before,
@@ -1080,7 +1056,7 @@ select:focus {
     border: 1px solid rgba(255, 255, 255, 0.03);
   }
 
-  /* Mejora: Efecto de glow para el form */
+  /* Mejora: Efecto de glow para el form con los colores del footer */
   .form-container {
     animation: float 6s ease-in-out infinite, glow 4s infinite alternate;
   }
@@ -1310,7 +1286,7 @@ select:focus {
     z-index: 1;
   }
 
-  /* Pseudo-elementos con colores secundario y terciario */
+  /* Pseudo-elementos con el degradado del footer */
   .card::before,
   .card-recomendacion::before,
   .no-results-card::before,
@@ -1321,7 +1297,12 @@ select:focus {
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--selection-gradient);
+    background: linear-gradient(
+      45deg,
+      rgba(0, 128, 255, 0.1),
+      rgba(0, 255, 128, 0.1),
+      rgba(247, 218, 0, 0.1)
+    );
     opacity: 0;
     transition: var(--transition);
     border-radius: 15px;
@@ -1329,7 +1310,7 @@ select:focus {
     z-index: 1; /* Por debajo del contenido y botones */
   }
 
-  /* Estado activo en móvil - con colores secundario y terciario */
+  /* Estado activo en móvil - con sombras del degradado del footer */
   .card:active,
   .card-recomendacion:active,
   .no-results-card:active,
@@ -1339,7 +1320,7 @@ select:focus {
   .touch-device .no-results-card.active,
   .touch-device .form-container.active {
     transform: translateY(-5px);
-    box-shadow: 0 0 15px var(--secondary-color), 0 0 5px var(--tertiary-color);
+    box-shadow: var(--glow-shadow);
   }
 
   .card:active::before,
@@ -1399,9 +1380,9 @@ select:focus {
     display: flex;
     flex-direction: column;
     line-height: 1.2;
-    /* Mejora: Sombra con colores secundario y terciario */
-    box-shadow: 0 5px 15px rgba(0, 255, 128, 0.1),
-      0 0 5px rgba(247, 218, 0, 0.05);
+    /* Mejora: Sombra con colores del degradado del footer */
+    box-shadow: 0 5px 15px rgba(0, 128, 255, 0.1),
+      0 0 5px rgba(0, 255, 128, 0.05), 0 0 3px rgba(247, 218, 0, 0.03);
   }
 
   .card-recomendacion-content {
