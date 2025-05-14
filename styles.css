@@ -13,6 +13,11 @@
     rgba(0, 255, 128, 0.1),
     rgba(247, 218, 0, 0.1)
   );
+  /* Nuevas variables para efectos */
+  --glow-shadow: 0 0 15px rgba(0, 128, 255, 0.5);
+  --card-hover-transform: translateY(-10px) scale(1.02);
+  --neon-text-shadow: 0 0 5px var(--primary-color),
+    0 0 10px var(--primary-color);
 }
 
 * {
@@ -33,10 +38,20 @@
 ::-webkit-scrollbar-thumb {
   background: var(--primary-color);
   border-radius: 5px;
+  /* Mejora: Añadir gradiente al scrollbar */
+  background: linear-gradient(
+    180deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0066cc;
+  background: linear-gradient(
+    180deg,
+    var(--secondary-color),
+    var(--primary-color)
+  );
 }
 
 /* Responsive scrollbar */
@@ -62,11 +77,21 @@
 .card-recomendacion-content::-webkit-scrollbar-thumb {
   background: var(--primary-color);
   border-radius: 3px;
+  /* Mejora: Añadir gradiente al scrollbar interno */
+  background: linear-gradient(
+    180deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
 }
 
 .info-container::-webkit-scrollbar-thumb:hover,
 .card-recomendacion-content::-webkit-scrollbar-thumb:hover {
-  background: #0066cc;
+  background: linear-gradient(
+    180deg,
+    var(--secondary-color),
+    var(--primary-color)
+  );
 }
 
 body {
@@ -75,6 +100,9 @@ body {
   color: var(--text-color);
   line-height: 1.6;
   overflow-x: hidden;
+  /* Mejora: Efecto de fondo más dinámico */
+  background: radial-gradient(ellipse at bottom, #252525 0%, #1a1a1a 100%);
+  transition: background 1s ease;
 }
 
 .container {
@@ -93,6 +121,10 @@ body {
   z-index: 1000;
   padding: 20px;
   transition: all 0.3s ease;
+  /* Mejora: Efecto de vidrio esmerilado */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(30, 30, 30, 0.8);
 }
 
 .logo {
@@ -108,6 +140,8 @@ body {
   transform: translateY(0);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
+  /* Mejora: Efecto de texto brillante */
+  text-shadow: var(--neon-text-shadow);
 }
 
 .logo.hidden {
@@ -121,6 +155,8 @@ body {
   color: var(--primary-color);
   font-family: "Orbitron", sans-serif;
   font-weight: 700;
+  /* Mejora: Efecto de parpadeo para el logo */
+  animation: flickerText 5s infinite alternate;
 }
 
 .logo-ia,
@@ -135,6 +171,62 @@ body {
   background-clip: text;
   font-family: "Orbitron", sans-serif;
   font-weight: 700;
+  /* Mejora: Animación de cambio de gradiente */
+  animation: gradientShift 8s infinite alternate;
+}
+
+/* Nuevas animaciones para el logo */
+@keyframes flickerText {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    text-shadow: var(--neon-text-shadow);
+    opacity: 1;
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+    opacity: 0.8;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background: linear-gradient(
+      to right,
+      var(--secondary-color),
+      var(--tertiary-color)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  50% {
+    background: linear-gradient(
+      to right,
+      var(--tertiary-color),
+      var(--primary-color)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  100% {
+    background: linear-gradient(
+      to right,
+      var(--primary-color),
+      var(--secondary-color)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 
 /* Hero Section - Común */
@@ -153,6 +245,8 @@ body {
   box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
   will-change: transform;
   font-weight: 500;
+  /* Mejora: Efecto de parallax suave para móvil y desktop */
+  transition: background-position 0.5s ease;
 }
 
 .hero::before {
@@ -163,6 +257,52 @@ body {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
+  /* Mejora: Degradado más dinámico */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.5)
+  );
+}
+
+/* Mejora: Añadir efecto de partículas/estrellas flotantes */
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(
+      circle at 10% 20%,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 50% 80%,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle at 90% 40%,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px
+    );
+  background-size: 100px 100px, 80px 80px, 120px 120px;
+  background-repeat: repeat;
+  animation: starsFloat 15s infinite linear;
+  opacity: 0.6;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes starsFloat {
+  0% {
+    background-position: 0 0, 0 0, 0 0;
+  }
+  100% {
+    background-position: 100px 100px, 80px 80px, 120px 120px;
+  }
 }
 
 .hero-content {
@@ -208,6 +348,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* Mejora: Añadir sombra para mejorar legibilidad */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  /* Mejora: Efecto de glow */
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
 }
 
 .animated-phrase .logo-text {
@@ -221,17 +365,26 @@ body {
   0%,
   100% {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(50px) scale(0.95);
+    filter: blur(2px);
+  }
+  3% {
+    filter: blur(1px);
   }
   3%,
   22% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+  23% {
+    filter: blur(0);
   }
   25%,
   97% {
     opacity: 0;
-    transform: translateY(-50px);
+    transform: translateY(-50px) scale(0.95);
+    filter: blur(2px);
   }
 }
 
@@ -271,12 +424,42 @@ body {
   font-weight: 400;
   text-align: center;
   margin-bottom: 4px;
+  /* Mejora: Efecto de typing */
+  border-right: 2px solid transparent;
+  animation: typing 4s steps(40, end) infinite;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@keyframes typing {
+  0%,
+  100% {
+    width: 0;
+    border-right-color: transparent;
+  }
+  5% {
+    border-right-color: var(--text-color);
+  }
+  30%,
+  80% {
+    width: 100%;
+    border-right-color: var(--text-color);
+  }
+  85% {
+    border-right-color: transparent;
+  }
+  90%,
+  95% {
+    width: 100%;
+  }
 }
 
 .scroll-indicator {
   animation: bounce 2s infinite;
   color: var(--text-color);
   line-height: 0;
+  /* Mejora: Efecto de brillo */
+  filter: drop-shadow(0 0 5px var(--primary-color));
 }
 
 /* Sections - Común */
@@ -292,6 +475,38 @@ body {
   text-align: center;
   color: var(--primary-color);
   margin-bottom: 2rem;
+  /* Mejora: Títulos de sección más llamativos */
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-bottom: 10px;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color),
+    var(--tertiary-color)
+  );
+  transition: width 0.8s ease;
+  animation: titleUnderline 1.5s forwards ease-out;
+}
+
+@keyframes titleUnderline {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 .recommendation-content {
@@ -312,6 +527,8 @@ body {
   transition: var(--transition);
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
   position: relative;
+  /* Mejora: Borde brillante */
+  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .card-content {
@@ -322,6 +539,14 @@ body {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
   color: var(--primary-color);
+  /* Mejora: Transición suave del color */
+  transition: color 0.3s ease;
+}
+
+/* Mejora: Efecto de brillo en títulos al hover */
+.card:hover h3 {
+  color: var(--secondary-color);
+  text-shadow: 0 0 5px rgba(0, 255, 128, 0.5);
 }
 
 /* Botón de Google - COMÚN para ambas versiones */
@@ -343,6 +568,39 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   padding: 8px;
   text-decoration: none; /* Importante para los enlaces <a> */
+  /* Mejora: Efecto de borde brillante */
+  border: 1px solid rgba(255, 255, 255, 0);
+  overflow: hidden;
+}
+
+/* Mejora: Añadir efecto de onda al hacer clic */
+.google-search-btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.google-search-btn:active::after {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0) translate(-50%, -50%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20) translate(-50%, -50%);
+    opacity: 0;
+  }
 }
 
 .google-search-btn img {
@@ -371,11 +629,23 @@ button {
   font-size: 1rem;
   transition: var(--transition);
   font-family: "Montserrat", sans-serif;
+  /* Mejora: Borde sutil */
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 select:hover,
 input:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+
+/* Mejora: Efecto de autofill personalizado */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-color);
+  -webkit-box-shadow: 0 0 0px 1000px rgba(30, 30, 30, 0.8) inset;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: var(--text-color);
 }
 
 select {
@@ -396,10 +666,35 @@ button {
   color: #ffffff;
   cursor: pointer;
   font-weight: bold;
+  /* Mejora: Efecto de brillo */
+  box-shadow: 0 0 10px rgba(0, 128, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Mejora: Efecto de onda para botones */
+button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+button:active::after {
+  animation: ripple 0.6s ease-out;
 }
 
 button:hover {
   background: #0066cc;
+  /* Mejora: Brillo al hover */
+  box-shadow: 0 0 15px rgba(0, 128, 255, 0.4);
 }
 
 /* Tarjetas de recomendación info básica - Común */
@@ -413,6 +708,14 @@ button:hover {
   color: var(--primary-color);
   margin-bottom: 0.2rem;
   line-height: 1.2;
+  /* Mejora: Transición suave */
+  transition: all 0.3s ease;
+}
+
+/* Mejora: Efecto hover en título de destino */
+.card-recomendacion:hover .destination-title {
+  color: var(--secondary-color);
+  text-shadow: 0 0 8px rgba(0, 255, 128, 0.3);
 }
 
 .stars-container {
@@ -425,6 +728,19 @@ button:hover {
 .stars {
   color: var(--tertiary-color);
   letter-spacing: 2px;
+  /* Mejora: Animación sutil para estrellas */
+  animation: starsTwinkle 3s infinite alternate;
+}
+
+@keyframes starsTwinkle {
+  0% {
+    opacity: 0.8;
+    text-shadow: 0 0 2px var(--tertiary-color);
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 8px var(--tertiary-color);
+  }
 }
 
 .rating-value {
@@ -462,6 +778,21 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Mejora: Animación de gradiente */
+  background-size: 200% auto;
+  animation: gradientMove 8s infinite linear;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .footer::before {
@@ -490,6 +821,8 @@ button:hover {
   color: var(--background-dark);
   font-weight: 700;
   font-family: "Orbitron", sans-serif;
+  /* Mejora: Efecto de texto */
+  text-shadow: 0 0 2px rgba(30, 30, 30, 0.5);
 }
 
 .footer-dot {
@@ -536,6 +869,17 @@ button:hover {
   }
 }
 
+/* Mejora: Nuevas animaciones */
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(0, 128, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 128, 255, 0.6);
+  }
+}
+
 /* Accessibility - Común */
 .visually-hidden {
   position: absolute;
@@ -556,6 +900,8 @@ input:focus,
 select:focus {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
+  /* Mejora: Efecto de brillo al focus para accesibilidad */
+  box-shadow: 0 0 0 4px rgba(0, 128, 255, 0.3);
 }
 
 /* Print Styles - Común */
@@ -609,6 +955,11 @@ select:focus {
       background-size: 120% auto;
     }
 
+    /* Mejora: Efecto de parallax al mover el mouse */
+    .hero.parallax-effect {
+      transition: background-position 0.3s ease-out;
+    }
+
     @keyframes zoomEffect {
       0%,
       100% {
@@ -648,6 +999,16 @@ select:focus {
   .card {
     flex: 1;
     animation: float 6s ease-in-out infinite;
+    /* Mejora: Añadir offset a la animación para que no floten todos a la vez */
+  }
+
+  /* Mejorar animación para que no todos los cards floten al mismo tiempo */
+  .card:nth-child(2) {
+    animation-delay: 1s;
+  }
+
+  .card:nth-child(3) {
+    animation-delay: 2s;
   }
 
   /* Card Images */
@@ -683,8 +1044,8 @@ select:focus {
   .card-recomendacion:hover,
   .no-results-card:hover,
   .form-container:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    transform: var(--card-hover-transform);
+    box-shadow: var(--glow-shadow);
   }
 
   .card:hover::before,
@@ -697,6 +1058,8 @@ select:focus {
   .card:hover .card-image,
   .card-recomendacion:hover img:not(.google-search-btn img) {
     filter: brightness(1.1);
+    /* Mejora: Efecto de zoom suave */
+    transform: scale(1.05);
   }
 
   .section-title {
@@ -707,6 +1070,8 @@ select:focus {
   .google-search-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    /* Mejora: Borde brillante */
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   /* Form */
@@ -721,6 +1086,13 @@ select:focus {
     transition: var(--transition);
     position: relative;
     animation: float 6s ease-in-out infinite;
+    /* Mejora: Efecto de borde brillante */
+    border: 1px solid rgba(255, 255, 255, 0.03);
+  }
+
+  /* Mejora: Efecto de glow para el form */
+  .form-container {
+    animation: float 6s ease-in-out infinite, glow 4s infinite alternate;
   }
 
   /* Recommendations Container */
@@ -771,6 +1143,27 @@ select:focus {
     flex-direction: column;
     animation: float 6s ease-in-out infinite;
     line-height: 1.2;
+  }
+
+  /* Mejora: Timing diferente para animaciones */
+  .card-recomendacion:nth-child(2) {
+    animation-delay: 1s;
+  }
+
+  .card-recomendacion:nth-child(3) {
+    animation-delay: 2s;
+  }
+
+  .card-recomendacion:nth-child(4) {
+    animation-delay: 0.5s;
+  }
+
+  .card-recomendacion:nth-child(5) {
+    animation-delay: 1.5s;
+  }
+
+  .card-recomendacion:nth-child(6) {
+    animation-delay: 2.5s;
   }
 
   .card-recomendacion-content {
@@ -868,6 +1261,9 @@ select:focus {
   .scroll-text {
     font-size: 0.9rem;
     opacity: 0.8;
+    /* Desactiva animación para móvil */
+    animation: none;
+    border-right: none;
   }
 
   /* Section titles */
@@ -970,6 +1366,14 @@ select:focus {
     opacity: 0.7;
   }
 
+  /* Mejora: Efecto de pulsación para móvil */
+  .card:active,
+  .card-recomendacion:active,
+  button:active {
+    transform: scale(0.98) translateY(-2px);
+    transition: all 0.1s ease;
+  }
+
   /* Form */
   .form-container {
     width: 100%;
@@ -978,6 +1382,8 @@ select:focus {
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
     position: relative;
+    /* Mejora: Borde sutil */
+    border: 1px solid rgba(255, 255, 255, 0.03);
   }
 
   /* Recommendations Container */
@@ -1006,6 +1412,8 @@ select:focus {
     display: flex;
     flex-direction: column;
     line-height: 1.2;
+    /* Mejora: Sombra más sutil */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
 
   .card-recomendacion-content {
@@ -1148,3 +1556,28 @@ select:focus {
     }
   }
 }
+
+/* Script para efectos de parallax en Hero */
+/* 
+Añade este script a tu archivo JS:
+
+document.addEventListener('DOMContentLoaded', function() {
+  const hero = document.querySelector('.hero');
+  
+  if (window.innerWidth >= 1025) {
+    hero.classList.add('parallax-effect');
+    
+    document.addEventListener('mousemove', function(e) {
+      if (hero.classList.contains('parallax-effect')) {
+        let mouseX = e.clientX / window.innerWidth;
+        let mouseY = e.clientY / window.innerHeight;
+        
+        let moveX = 20 - mouseX * 40; // -20 a 20px de movimiento
+        let moveY = 20 - mouseY * 40; // -20 a 20px de movimiento
+        
+        hero.style.backgroundPosition = `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
+      }
+    });
+  }
+});
+*/

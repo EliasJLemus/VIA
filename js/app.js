@@ -339,10 +339,32 @@ window.addEventListener("scroll", () => {
   }
 });
 
+// Función para el efecto parallax en el hero
+function setupParallaxEffect() {
+  const hero = document.querySelector(".hero");
+
+  if (window.innerWidth >= 1025) {
+    hero.classList.add("parallax-effect");
+
+    document.addEventListener("mousemove", function (e) {
+      if (hero.classList.contains("parallax-effect")) {
+        let mouseX = e.clientX / window.innerWidth;
+        let mouseY = e.clientY / window.innerHeight;
+
+        let moveX = 20 - mouseX * 40; // -20 a 20px de movimiento
+        let moveY = 20 - mouseY * 40; // -20 a 20px de movimiento
+
+        hero.style.backgroundPosition = `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
+      }
+    });
+  }
+}
+
 // Inicializar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM cargado, inicializando recomendador...");
   initializeRecommender();
+  setupParallaxEffect(); // Añadimos el setup del efecto parallax
 });
 
 // Reiniciar estado si la página se recarga o vuelve a la navegación
