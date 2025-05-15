@@ -771,6 +771,8 @@ select:focus {
   .form-container:hover {
     transform: translateY(-10px);
     box-shadow: var(--glow-shadow);
+    /* Anular la animación al hacer hover */
+    animation-play-state: paused;
   }
 
   .card:hover::before,
@@ -795,7 +797,7 @@ select:focus {
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
   }
 
-  /* Form */
+  /* Form con efecto de degradado múltiple - desktop */
   .form-container {
     width: 100%;
     max-width: 600px;
@@ -803,10 +805,80 @@ select:focus {
     background: var(--card-bg);
     padding: 2rem;
     border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
     transition: var(--transition);
     position: relative;
-    animation: float 6s ease-in-out infinite;
+    animation: formGradientGlow 8s ease-in-out infinite alternate;
+    background-position: 0 0;
+    background-size: 100% 100%;
+  }
+
+  @keyframes formGradientGlow {
+    0% {
+      box-shadow: 0 0 15px rgba(0, 128, 255, 0.5),
+        0 0 25px rgba(0, 255, 128, 0.2), 0 0 35px rgba(247, 218, 0, 0.1);
+      transform: translateY(-5px);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(0, 128, 255, 0.3),
+        0 0 30px rgba(0, 255, 128, 0.4), 0 0 40px rgba(247, 218, 0, 0.2);
+      transform: translateY(-10px);
+    }
+    100% {
+      box-shadow: 0 0 15px rgba(0, 128, 255, 0.5),
+        0 0 25px rgba(0, 255, 128, 0.2), 0 0 35px rgba(247, 218, 0, 0.1);
+      transform: translateY(-5px);
+    }
+  }
+
+  /* Pseudo-elemento para el degradado animado */
+  .form-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-hover);
+    opacity: 0.4;
+    border-radius: 15px;
+    z-index: 0;
+    animation: gradientMove 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes gradientMove {
+    0% {
+      opacity: 0.2;
+      background: linear-gradient(
+        45deg,
+        rgba(0, 128, 255, 0.1),
+        rgba(0, 255, 128, 0.1),
+        rgba(247, 218, 0, 0.1)
+      );
+    }
+    50% {
+      opacity: 0.3;
+      background: linear-gradient(
+        45deg,
+        rgba(247, 218, 0, 0.1),
+        rgba(0, 128, 255, 0.1),
+        rgba(0, 255, 128, 0.1)
+      );
+    }
+    100% {
+      opacity: 0.2;
+      background: linear-gradient(
+        45deg,
+        rgba(0, 255, 128, 0.1),
+        rgba(247, 218, 0, 0.1),
+        rgba(0, 128, 255, 0.1)
+      );
+    }
+  }
+
+  /* Aseguramos que el contenido del formulario esté por encima del efecto */
+  .form-container > * {
+    position: relative;
+    z-index: 1;
   }
 
   /* Recommendations Container */
@@ -1037,7 +1109,9 @@ select:focus {
   .no-results-card.touch-active,
   .form-container.touch-active {
     transform: translateY(-5px);
-    box-shadow: var(--touch-glow-shadow);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    /* Pausar la animación al tocar */
+    animation-play-state: paused;
   }
 
   .card:active::before,
@@ -1051,13 +1125,6 @@ select:focus {
     opacity: 0.7;
   }
 
-  .card:active .card-image,
-  .card-recomendacion:active img:not(.google-search-btn img),
-  .card.touch-active .card-image,
-  .card-recomendacion.touch-active img:not(.google-search-btn img) {
-    filter: brightness(1.1);
-  }
-
   .card:active h3,
   .card.touch-active h3 {
     color: var(--secondary-color);
@@ -1068,15 +1135,83 @@ select:focus {
     color: var(--secondary-color);
   }
 
-  /* Form Container - Móvil mejorado */
+  /* Form con efecto de degradado para móvil */
   .form-container {
     width: 100%;
     background: var(--card-bg);
     padding: 1.5rem;
     border-radius: 15px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
     position: relative;
-    transition: var(--transition);
+    animation: formGradientGlowMobile 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes formGradientGlowMobile {
+    0% {
+      box-shadow: 0 0 12px rgba(0, 128, 255, 0.4),
+        0 0 20px rgba(0, 255, 128, 0.2), 0 0 25px rgba(247, 218, 0, 0.1);
+      transform: translateY(-3px);
+    }
+    50% {
+      box-shadow: 0 0 15px rgba(0, 128, 255, 0.3),
+        0 0 25px rgba(0, 255, 128, 0.3), 0 0 30px rgba(247, 218, 0, 0.2);
+      transform: translateY(-7px);
+    }
+    100% {
+      box-shadow: 0 0 12px rgba(0, 128, 255, 0.4),
+        0 0 20px rgba(0, 255, 128, 0.2), 0 0 25px rgba(247, 218, 0, 0.1);
+      transform: translateY(-3px);
+    }
+  }
+
+  /* Pseudo-elemento para el degradado animado en móvil */
+  .form-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-hover);
+    opacity: 0.3;
+    border-radius: 15px;
+    z-index: 0;
+    animation: gradientMoveMobile 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes gradientMoveMobile {
+    0% {
+      opacity: 0.15;
+      background: linear-gradient(
+        45deg,
+        rgba(0, 128, 255, 0.1),
+        rgba(0, 255, 128, 0.1),
+        rgba(247, 218, 0, 0.1)
+      );
+    }
+    50% {
+      opacity: 0.25;
+      background: linear-gradient(
+        45deg,
+        rgba(247, 218, 0, 0.1),
+        rgba(0, 128, 255, 0.1),
+        rgba(0, 255, 128, 0.1)
+      );
+    }
+    100% {
+      opacity: 0.15;
+      background: linear-gradient(
+        45deg,
+        rgba(0, 255, 128, 0.1),
+        rgba(247, 218, 0, 0.1),
+        rgba(0, 128, 255, 0.1)
+      );
+    }
+  }
+
+  /* Aseguramos que el contenido del formulario esté por encima del efecto en móvil */
+  .form-container > * {
+    position: relative;
+    z-index: 1;
   }
 
   /* Recommendations Container */
@@ -1097,7 +1232,7 @@ select:focus {
     transform: translateY(0);
   }
 
-  /* Card de recomendación - Móvil mejorado con consistencia */
+  /* Card de recomendación */
   .card-recomendacion,
   .no-results-card {
     width: 100%;
