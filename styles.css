@@ -731,9 +731,53 @@ select:focus {
     gap: 2rem;
   }
 
-  .card {
+  /* Feature Cards con mismo efecto de sombreado que el form */
+  .card,
+  .card-recomendacion,
+  .no-results-card {
     flex: 1;
-    animation: float 6s ease-in-out infinite;
+    /* Reemplazar la animación float con la animación de sombreado */
+    animation: cardGradientGlow 8s ease-in-out infinite alternate;
+    background-position: 0 0;
+    background-size: 100% 100%;
+    will-change: transform, box-shadow;
+  }
+
+  /* Nueva animación de sombreado para cards similar al form pero menos intensa */
+  @keyframes cardGradientGlow {
+    0% {
+      box-shadow: 0 0 12px rgba(0, 128, 255, 0.4),
+        0 0 20px rgba(0, 255, 128, 0.1), 0 0 28px rgba(247, 218, 0, 0.05);
+      transform: translateY(-3px);
+    }
+    50% {
+      box-shadow: 0 0 15px rgba(0, 128, 255, 0.2),
+        0 0 25px rgba(0, 255, 128, 0.3), 0 0 32px rgba(247, 218, 0, 0.1);
+      transform: translateY(-7px);
+    }
+    100% {
+      box-shadow: 0 0 12px rgba(0, 128, 255, 0.4),
+        0 0 20px rgba(0, 255, 128, 0.1), 0 0 28px rgba(247, 218, 0, 0.05);
+      transform: translateY(-3px);
+    }
+  }
+
+  /* Agregar el mismo pseudo-elemento para el degradado animado */
+  .card::after,
+  .card-recomendacion::after,
+  .no-results-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-hover);
+    opacity: 0.3;
+    border-radius: 15px;
+    z-index: 0;
+    animation: gradientMove 8s ease-in-out infinite alternate;
+    pointer-events: none;
   }
 
   /* Card Images */
@@ -744,6 +788,16 @@ select:focus {
     object-fit: cover;
     transition: var(--transition);
     filter: brightness(0.95);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Asegurar que el contenido esté por encima del efecto */
+  .card-content,
+  .card-recomendacion-content,
+  .no-results-card > * {
+    position: relative;
+    z-index: 1;
   }
 
   /* Pseudo-elemento para el efecto hover */
@@ -769,7 +823,7 @@ select:focus {
   .card-recomendacion:hover,
   .no-results-card:hover,
   .form-container:hover {
-    transform: translateY(-10px);
+    transform: var(--card-hover-transform);
     box-shadow: var(--glow-shadow);
     /* Anular la animación al hacer hover */
     animation-play-state: paused;
@@ -927,7 +981,6 @@ select:focus {
     height: 400px;
     display: flex;
     flex-direction: column;
-    animation: float 6s ease-in-out infinite;
     line-height: 1.2;
   }
 
@@ -1040,14 +1093,61 @@ select:focus {
     gap: 2rem;
   }
 
-  .card {
+  /* Feature Cards con mismo efecto de sombreado que el form en móvil */
+  .card,
+  .card-recomendacion,
+  .no-results-card {
     width: 100%;
     margin-bottom: 1rem;
-    /* Quitar animación float pero mantener transición */
-    animation: none;
-    transition: var(--transition);
-    /* Agregar el mismo sombreado sutil que desktop */
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    animation: cardGradientGlowMobile 8s ease-in-out infinite alternate;
+    will-change: transform, box-shadow;
+  }
+
+  /* Nueva animación de sombreado para cards en móvil */
+  @keyframes cardGradientGlowMobile {
+    0% {
+      box-shadow: 0 0 10px rgba(0, 128, 255, 0.3),
+        0 0 15px rgba(0, 255, 128, 0.1), 0 0 20px rgba(247, 218, 0, 0.05);
+      transform: translateY(-2px);
+    }
+    50% {
+      box-shadow: 0 0 12px rgba(0, 128, 255, 0.2),
+        0 0 18px rgba(0, 255, 128, 0.2), 0 0 24px rgba(247, 218, 0, 0.1);
+      transform: translateY(-5px);
+    }
+    100% {
+      box-shadow: 0 0 10px rgba(0, 128, 255, 0.3),
+        0 0 15px rgba(0, 255, 128, 0.1), 0 0 20px rgba(247, 218, 0, 0.05);
+      transform: translateY(-2px);
+    }
+  }
+
+  /* Agregar el mismo pseudo-elemento para el degradado animado en móvil */
+  .card::after,
+  .card-recomendacion::after,
+  .no-results-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-hover);
+    opacity: 0.2;
+    border-radius: 15px;
+    z-index: 0;
+    animation: gradientMoveMobile 8s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  /* Asegurar que el contenido esté por encima del efecto */
+  .card-content,
+  .card-recomendacion-content,
+  .card-image,
+  .card-recomendacion img,
+  .no-results-card > * {
+    position: relative;
+    z-index: 1;
   }
 
   /* Imágenes */
@@ -1058,6 +1158,8 @@ select:focus {
     object-fit: cover;
     filter: brightness(0.95);
     transition: var(--transition);
+    position: relative;
+    z-index: 1;
   }
 
   /* Pseudo-elementos - actualizados para móvil similar a desktop */
@@ -1241,7 +1343,6 @@ select:focus {
     flex-direction: column;
     line-height: 1.2;
     transition: var(--transition);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
   }
 
   .card-recomendacion-content {
@@ -1383,6 +1484,25 @@ select:focus {
 
     .card-content {
       padding: 1.2rem;
+    }
+
+    /* Ajustar animación de sombreado para móviles pequeños */
+    @keyframes cardGradientGlowMobile {
+      0% {
+        box-shadow: 0 0 8px rgba(0, 128, 255, 0.3),
+          0 0 12px rgba(0, 255, 128, 0.1), 0 0 16px rgba(247, 218, 0, 0.05);
+        transform: translateY(-1px);
+      }
+      50% {
+        box-shadow: 0 0 10px rgba(0, 128, 255, 0.2),
+          0 0 15px rgba(0, 255, 128, 0.2), 0 0 20px rgba(247, 218, 0, 0.1);
+        transform: translateY(-3px);
+      }
+      100% {
+        box-shadow: 0 0 8px rgba(0, 128, 255, 0.3),
+          0 0 12px rgba(0, 255, 128, 0.1), 0 0 16px rgba(247, 218, 0, 0.05);
+        transform: translateY(-1px);
+      }
     }
   }
 }
