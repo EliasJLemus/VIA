@@ -43,16 +43,10 @@
 ::-webkit-scrollbar-thumb {
   background: var(--primary-color);
   border-radius: 5px;
-  /* Mejora: Añadir gradiente al scrollbar */
-  background: var(--footer-gradient);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(
-    180deg,
-    var(--secondary-color),
-    var(--primary-color)
-  );
+  background: #0066cc;
 }
 
 /* Responsive scrollbar */
@@ -78,17 +72,11 @@
 .card-recomendacion-content::-webkit-scrollbar-thumb {
   background: var(--primary-color);
   border-radius: 3px;
-  /* Mejora: Añadir gradiente al scrollbar interno */
-  background: var(--footer-gradient);
 }
 
 .info-container::-webkit-scrollbar-thumb:hover,
 .card-recomendacion-content::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(
-    180deg,
-    var(--secondary-color),
-    var(--primary-color)
-  );
+  background: #0066cc;
 }
 
 body {
@@ -97,15 +85,6 @@ body {
   color: var(--text-color);
   line-height: 1.6;
   overflow-x: hidden;
-  /* Mejora: Efecto de fondo más dinámico */
-  background: radial-gradient(ellipse at bottom, #252525 0%, #1a1a1a 100%);
-  transition: background 1s ease;
-}
-
-/* Cambiar la selección de texto a los colores del footer */
-::selection {
-  background: rgba(0, 128, 255, 0.5);
-  color: #fff;
 }
 
 .container {
@@ -124,10 +103,6 @@ body {
   z-index: 1000;
   padding: 20px;
   transition: all 0.3s ease;
-  /* Mejora: Efecto de vidrio esmerilado */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  background: rgba(30, 30, 30, 0.8);
 }
 
 .logo {
@@ -143,8 +118,6 @@ body {
   transform: translateY(0);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
-  /* Mejora: Efecto de brillo futurista mejorado - mantiene el estilo del logo */
-  filter: drop-shadow(0 0 8px var(--primary-color));
 }
 
 .logo.hidden {
@@ -158,8 +131,6 @@ body {
   color: var(--primary-color);
   font-family: "Orbitron", sans-serif;
   font-weight: 700;
-  /* Mejora: Efecto de brillo futurista */
-  filter: drop-shadow(0 0 5px var(--primary-color));
 }
 
 .logo-ia,
@@ -174,42 +145,6 @@ body {
   background-clip: text;
   font-family: "Orbitron", sans-serif;
   font-weight: 700;
-  /* Mejora: Animación de cambio de gradiente */
-  animation: gradientShift 8s infinite alternate;
-}
-
-/* Animaciones para el logo */
-@keyframes gradientShift {
-  0% {
-    background: linear-gradient(
-      to right,
-      var(--secondary-color),
-      var(--tertiary-color)
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  50% {
-    background: linear-gradient(
-      to right,
-      var(--tertiary-color),
-      var(--primary-color)
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  100% {
-    background: linear-gradient(
-      to right,
-      var(--primary-color),
-      var(--secondary-color)
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
 }
 
 /* Hero Section - Común */
@@ -228,8 +163,6 @@ body {
   box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
   will-change: transform;
   font-weight: 500;
-  /* Mejora: Efecto de parallax suave para móvil y desktop */
-  transition: background-position 0.5s ease;
 }
 
 .hero::before {
@@ -240,52 +173,6 @@ body {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
-  /* Mejora: Degradado más dinámico */
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.7),
-    rgba(0, 0, 0, 0.5)
-  );
-}
-
-/* Mejora: Añadir efecto de partículas/estrellas flotantes */
-.hero::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: radial-gradient(
-      circle at 10% 20%,
-      rgba(255, 255, 255, 0.05) 1px,
-      transparent 1px
-    ),
-    radial-gradient(
-      circle at 50% 80%,
-      rgba(255, 255, 255, 0.03) 1px,
-      transparent 1px
-    ),
-    radial-gradient(
-      circle at 90% 40%,
-      rgba(255, 255, 255, 0.04) 1px,
-      transparent 1px
-    );
-  background-size: 100px 100px, 80px 80px, 120px 120px;
-  background-repeat: repeat;
-  animation: starsFloat 15s infinite linear;
-  opacity: 0.6;
-  z-index: 1;
-  pointer-events: none;
-}
-
-@keyframes starsFloat {
-  0% {
-    background-position: 0 0, 0 0, 0 0;
-  }
-  100% {
-    background-position: 100px 100px, 80px 80px, 120px 120px;
-  }
 }
 
 .hero-content {
@@ -331,8 +218,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Quitando sombras de los textos como solicitado */
-  text-shadow: none;
 }
 
 .animated-phrase .logo-text {
@@ -342,6 +227,7 @@ body {
   margin: 0 10px;
 }
 
+/* Mejorado: Efecto de textos aparecientes */
 @keyframes slideUpFade {
   0%,
   100% {
@@ -400,7 +286,6 @@ body {
   padding-bottom: 15px;
 }
 
-/* Scroll text como estaba originalmente */
 .scroll-text {
   color: var(--text-color);
   font-weight: 400;
@@ -412,9 +297,6 @@ body {
   animation: bounce 2s infinite;
   color: var(--text-color);
   line-height: 0;
-  /* Sombra usando degradado del footer */
-  filter: drop-shadow(0 0 5px var(--primary-color))
-    drop-shadow(0 0 8px var(--secondary-color));
 }
 
 /* Sections - Común */
@@ -430,13 +312,6 @@ body {
   text-align: center;
   color: var(--primary-color);
   margin-bottom: 2rem;
-  /* Mejora: Títulos de sección más llamativos */
-  position: relative;
-  display: inline-block;
-  left: 50%;
-  transform: translateX(-50%);
-  padding-bottom: 10px;
-  /* Quitamos el subrayado degradado como solicitado */
 }
 
 .recommendation-content {
@@ -457,8 +332,6 @@ body {
   transition: var(--transition);
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
   position: relative;
-  /* Mejora: Borde brillante */
-  border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 .card-content {
@@ -476,7 +349,6 @@ body {
 /* Efecto de brillo en títulos al hover usando el degradado del footer */
 .card:hover h3 {
   color: var(--secondary-color);
-  text-shadow: 0 0 5px var(--primary-color);
 }
 
 /* Botón de Google - COMÚN para ambas versiones */
@@ -498,39 +370,6 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   padding: 8px;
   text-decoration: none; /* Importante para los enlaces <a> */
-  /* Mejora: Efecto de borde brillante */
-  border: 1px solid rgba(255, 255, 255, 0);
-  overflow: hidden;
-}
-
-/* Mejora: Añadir efecto de onda al hacer clic */
-.google-search-btn::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1) translate(-50%, -50%);
-  transform-origin: 50% 50%;
-}
-
-.google-search-btn:active::after {
-  animation: ripple 0.6s ease-out;
-}
-
-@keyframes ripple {
-  0% {
-    transform: scale(0) translate(-50%, -50%);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(20) translate(-50%, -50%);
-    opacity: 0;
-  }
 }
 
 .google-search-btn img {
@@ -559,33 +398,11 @@ button {
   font-size: 1rem;
   transition: var(--transition);
   font-family: "Montserrat", sans-serif;
-  /* Mejora: Borde sutil */
-  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 select:hover,
 input:hover {
   background: rgba(255, 255, 255, 0.2);
-}
-
-/* Estilo de selección para form elements usando degradado del footer */
-select:focus,
-input:focus {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--primary-color);
-  box-shadow: 0 0 0 1px var(--primary-color), 0 0 10px var(--secondary-color),
-    0 0 15px var(--tertiary-color);
-  outline: none;
-}
-
-/* Mejora: Efecto de autofill personalizado */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--text-color);
-  -webkit-box-shadow: 0 0 0px 1000px rgba(30, 30, 30, 0.8) inset;
-  transition: background-color 5000s ease-in-out 0s;
-  caret-color: var(--text-color);
 }
 
 select {
@@ -602,40 +419,14 @@ select option {
 }
 
 button {
-  background: var(--footer-gradient);
+  background: var(--primary-color);
   color: #ffffff;
   cursor: pointer;
   font-weight: bold;
-  /* Mejora: Efecto de brillo usando degradado del footer */
-  box-shadow: 0 0 10px rgba(0, 128, 255, 0.2);
-  position: relative;
-  overflow: hidden;
-  border: none;
-}
-
-/* Mejora: Efecto de onda para botones */
-button::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.7);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1) translate(-50%, -50%);
-  transform-origin: 50% 50%;
-}
-
-button:active::after {
-  animation: ripple 0.6s ease-out;
 }
 
 button:hover {
-  /* Mejora: Brillo al hover usando el degradado del footer */
-  box-shadow: var(--glow-shadow);
-  transform: scale(1.02);
+  background: #0066cc;
 }
 
 /* Tarjetas de recomendación info básica - Común */
@@ -656,7 +447,6 @@ button:hover {
 /* Mejora: Efecto hover en título de destino usando degradado del footer */
 .card-recomendacion:hover .destination-title {
   color: var(--secondary-color);
-  text-shadow: 0 0 8px var(--primary-color);
 }
 
 .stars-container {
@@ -702,10 +492,15 @@ button:hover {
   opacity: 0.7;
 }
 
-/* Footer - Común - Manteniendo el efecto original */
+/* Footer - Común */
 .footer {
   position: relative;
-  background: var(--footer-gradient);
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color),
+    var(--tertiary-color)
+  );
   color: var(--background-dark);
   text-align: center;
   padding: 0.6rem;
@@ -714,46 +509,6 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Mejora: Animación de gradiente en el footer con colores más vibrantes */
-  background-size: 200% auto;
-  animation: gradientMove 8s infinite linear;
-}
-
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-    background: linear-gradient(
-      to right,
-      var(--primary-color),
-      var(--secondary-color),
-      var(--tertiary-color)
-    );
-  }
-  33% {
-    background: linear-gradient(
-      to right,
-      var(--tertiary-color),
-      var(--primary-color),
-      var(--secondary-color)
-    );
-  }
-  66% {
-    background: linear-gradient(
-      to right,
-      var(--secondary-color),
-      var(--tertiary-color),
-      var(--primary-color)
-    );
-  }
-  100% {
-    background-position: 100% 50%;
-    background: linear-gradient(
-      to right,
-      var(--primary-color),
-      var(--secondary-color),
-      var(--tertiary-color)
-    );
-  }
 }
 
 .footer::before {
@@ -778,7 +533,6 @@ button:hover {
   line-height: 1.3;
 }
 
-/* Restaurando la versión original del VIA en el footer */
 .footer-via {
   color: var(--background-dark);
   font-weight: 700;
@@ -829,17 +583,6 @@ button:hover {
   }
 }
 
-/* Mejora: Nuevas animaciones */
-@keyframes glow {
-  0%,
-  100% {
-    box-shadow: 0 0 5px var(--primary-color);
-  }
-  50% {
-    box-shadow: 0 0 20px var(--secondary-color), 0 0 30px var(--tertiary-color);
-  }
-}
-
 /* Accessibility - Común */
 .visually-hidden {
   position: absolute;
@@ -858,10 +601,8 @@ a:focus,
 button:focus,
 input:focus,
 select:focus {
-  outline: none;
-  /* Sombras usando los colores del degradado del footer */
-  box-shadow: 0 0 0 2px var(--primary-color), 0 0 0 4px rgba(0, 255, 128, 0.3),
-    0 0 0 6px rgba(247, 218, 0, 0.2);
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
 /* Print Styles - Común */
@@ -915,11 +656,6 @@ select:focus {
       background-size: 120% auto;
     }
 
-    /* Mejora: Efecto de parallax al mover el mouse */
-    .hero.parallax-effect {
-      transition: background-position 0.3s ease-out;
-    }
-
     @keyframes zoomEffect {
       0%,
       100% {
@@ -959,16 +695,6 @@ select:focus {
   .card {
     flex: 1;
     animation: float 6s ease-in-out infinite;
-    /* Mejora: Añadir offset a la animación para que no floten todos a la vez */
-  }
-
-  /* Mejorar animación para que no todos los cards floten al mismo tiempo */
-  .card:nth-child(2) {
-    animation-delay: 1s;
-  }
-
-  .card:nth-child(3) {
-    animation-delay: 2s;
   }
 
   /* Card Images */
@@ -992,13 +718,7 @@ select:focus {
     left: 0;
     right: 0;
     bottom: 0;
-    /* Usando el degradado del footer como solicitado */
-    background: linear-gradient(
-      45deg,
-      rgba(0, 128, 255, 0.1),
-      rgba(0, 255, 128, 0.1),
-      rgba(247, 218, 0, 0.1)
-    );
+    background: var(--gradient-hover);
     opacity: 0;
     transition: var(--transition);
     border-radius: 15px;
@@ -1010,7 +730,7 @@ select:focus {
   .card-recomendacion:hover,
   .no-results-card:hover,
   .form-container:hover {
-    transform: var(--card-hover-transform);
+    transform: translateY(-10px);
     box-shadow: var(--glow-shadow);
   }
 
@@ -1024,20 +744,16 @@ select:focus {
   .card:hover .card-image,
   .card-recomendacion:hover img:not(.google-search-btn img) {
     filter: brightness(1.1);
-    /* Mejora: Efecto de zoom suave */
-    transform: scale(1.05);
   }
 
   .section-title {
     font-size: 2.5rem;
   }
 
-  /* Botón de Google - Específico para desktop */
+  /* Google search button hover effect */
   .google-search-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-    /* Mejora: Borde brillante */
-    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   /* Form */
@@ -1052,13 +768,6 @@ select:focus {
     transition: var(--transition);
     position: relative;
     animation: float 6s ease-in-out infinite;
-    /* Mejora: Efecto de borde brillante */
-    border: 1px solid rgba(255, 255, 255, 0.03);
-  }
-
-  /* Mejora: Efecto de glow para el form con los colores del footer */
-  .form-container {
-    animation: float 6s ease-in-out infinite, glow 4s infinite alternate;
   }
 
   /* Recommendations Container */
@@ -1109,27 +818,6 @@ select:focus {
     flex-direction: column;
     animation: float 6s ease-in-out infinite;
     line-height: 1.2;
-  }
-
-  /* Mejora: Timing diferente para animaciones */
-  .card-recomendacion:nth-child(2) {
-    animation-delay: 1s;
-  }
-
-  .card-recomendacion:nth-child(3) {
-    animation-delay: 2s;
-  }
-
-  .card-recomendacion:nth-child(4) {
-    animation-delay: 0.5s;
-  }
-
-  .card-recomendacion:nth-child(5) {
-    animation-delay: 1.5s;
-  }
-
-  .card-recomendacion:nth-child(6) {
-    animation-delay: 2.5s;
   }
 
   .card-recomendacion-content {
@@ -1286,7 +974,7 @@ select:focus {
     z-index: 1;
   }
 
-  /* Pseudo-elementos con el degradado del footer */
+  /* Pseudo-elementos - mantenemos más sencillos para móvil */
   .card::before,
   .card-recomendacion::before,
   .no-results-card::before,
@@ -1297,12 +985,7 @@ select:focus {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(
-      45deg,
-      rgba(0, 128, 255, 0.1),
-      rgba(0, 255, 128, 0.1),
-      rgba(247, 218, 0, 0.1)
-    );
+    background: var(--gradient-hover);
     opacity: 0;
     transition: var(--transition);
     border-radius: 15px;
@@ -1310,7 +993,7 @@ select:focus {
     z-index: 1; /* Por debajo del contenido y botones */
   }
 
-  /* Estado activo en móvil - con sombras del degradado del footer */
+  /* Estado activo en móvil - Mejorado con sombreado */
   .card:active,
   .card-recomendacion:active,
   .no-results-card:active,
@@ -1320,7 +1003,7 @@ select:focus {
   .touch-device .no-results-card.active,
   .touch-device .form-container.active {
     transform: translateY(-5px);
-    box-shadow: var(--glow-shadow);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
   }
 
   .card:active::before,
@@ -1334,14 +1017,6 @@ select:focus {
     opacity: 0.7;
   }
 
-  /* Mejora: Efecto de pulsación para móvil */
-  .card:active,
-  .card-recomendacion:active,
-  button:active {
-    transform: scale(0.98) translateY(-2px);
-    transition: all 0.1s ease;
-  }
-
   /* Form */
   .form-container {
     width: 100%;
@@ -1350,8 +1025,6 @@ select:focus {
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
     position: relative;
-    /* Mejora: Borde sutil */
-    border: 1px solid rgba(255, 255, 255, 0.03);
   }
 
   /* Recommendations Container */
@@ -1380,9 +1053,6 @@ select:focus {
     display: flex;
     flex-direction: column;
     line-height: 1.2;
-    /* Mejora: Sombra con colores del degradado del footer */
-    box-shadow: 0 5px 15px rgba(0, 128, 255, 0.1),
-      0 0 5px rgba(0, 255, 128, 0.05), 0 0 3px rgba(247, 218, 0, 0.03);
   }
 
   .card-recomendacion-content {
