@@ -195,3 +195,34 @@
     </script>
   </body>
 </html>
+
+<script>
+  // Detectar dispositivos táctiles
+  function isTouchDevice() {
+    return "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  }
+
+  if (isTouchDevice()) {
+    document.body.classList.add("is-touch-device");
+
+    // Agregar efecto de "toque activo" para simular hover en móviles
+    const touchElements = document.querySelectorAll(
+      ".card, .card-recomendacion, .no-results-card, .form-container"
+    );
+
+    touchElements.forEach((element) => {
+      element.addEventListener("touchstart", function () {
+        this.classList.add("touch-active");
+      });
+
+      element.addEventListener("touchend", function () {
+        this.classList.remove("touch-active");
+        // Mantener el efecto por un momento antes de quitarlo
+        setTimeout(() => {
+          this.classList.remove("touch-active");
+        }, 300);
+      });
+    });
+  }
+</script>
+*/

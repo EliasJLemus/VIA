@@ -13,7 +13,7 @@
     rgba(0, 255, 128, 0.1),
     rgba(247, 218, 0, 0.1)
   );
-  /* Nuevas variables para efectos */
+  /* Nuevas variables para efectos mejorados */
   --glow-shadow: 0 0 15px rgba(0, 128, 255, 0.5),
     0 0 25px rgba(0, 255, 128, 0.3), 0 0 35px rgba(247, 218, 0, 0.2);
   --card-hover-transform: translateY(-10px) scale(1.02);
@@ -23,6 +23,9 @@
     var(--secondary-color),
     var(--tertiary-color)
   );
+  /* Nueva variable para efectos touch */
+  --touch-glow-shadow: 0 0 12px rgba(0, 128, 255, 0.4),
+    0 0 22px rgba(0, 255, 128, 0.2), 0 0 30px rgba(247, 218, 0, 0.1);
 }
 
 * {
@@ -492,7 +495,7 @@ button:hover {
   opacity: 0.7;
 }
 
-/* Footer - Común */
+/* Footer - Común con animación mejorada */
 .footer {
   position: relative;
   background: linear-gradient(
@@ -509,6 +512,21 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-size: 200% 100%;
+  animation: gradientFlow 8s linear infinite;
+  overflow: hidden;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .footer::before {
@@ -521,6 +539,27 @@ button:hover {
   background: inherit;
   box-shadow: 0 -10px 30px rgba(255, 255, 255, 0.1);
   z-index: -1;
+}
+
+.footer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: skewX(-25deg);
+  animation: shimmer 6s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 150%;
+  }
 }
 
 .footer p {
@@ -880,7 +919,7 @@ select:focus {
 }
 
 /******************************************
- * VERSIÓN MÓVIL (max-width: 768px)
+ * VERSIÓN MÓVIL MEJORADA (max-width: 768px)
  ******************************************/
 @media (max-width: 768px) {
   /* Responsive scrollbar */
@@ -922,7 +961,7 @@ select:focus {
     font-size: 2rem;
   }
 
-  /* Feature Cards */
+  /* Feature Cards - NUEVA CONFIGURACIÓN MÓVIL MÁS SIMILAR A DESKTOP */
   .feature-cards {
     display: flex;
     flex-direction: column;
@@ -932,30 +971,11 @@ select:focus {
   .card {
     width: 100%;
     margin-bottom: 1rem;
-  }
-
-  /* Versión móvil: evitamos las animaciones float */
-  .card,
-  .card-recomendacion,
-  .no-results-card,
-  .form-container {
+    /* Quitar animación float pero mantener transición */
     animation: none;
-  }
-
-  /* Botón de Google para MÓVIL - CRÍTICO */
-  .google-search-btn {
-    /* Mantenemos propiedades principales pero aumentamos z-index */
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 100 !important;
-    /* Garantizamos que sea clickeable */
-    pointer-events: auto !important;
-    /* No cambiamos el tamaño para evitar que se vea mal */
-  }
-
-  .google-search-btn:active {
-    transform: scale(0.95);
+    transition: var(--transition);
+    /* Agregar el mismo sombreado sutil que desktop */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
   }
 
   /* Imágenes */
@@ -965,16 +985,10 @@ select:focus {
     height: 180px;
     object-fit: cover;
     filter: brightness(0.95);
+    transition: var(--transition);
   }
 
-  /* Diseño alternativo para tarjetas en móvil */
-  .card-content {
-    padding: 1.2rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Pseudo-elementos - mantenemos más sencillos para móvil */
+  /* Pseudo-elementos - actualizados para móvil similar a desktop */
   .card::before,
   .card-recomendacion::before,
   .no-results-card::before,
@@ -990,34 +1004,71 @@ select:focus {
     transition: var(--transition);
     border-radius: 15px;
     pointer-events: none;
-    z-index: 1; /* Por debajo del contenido y botones */
+    z-index: 0; /* Por debajo del contenido */
   }
 
-  /* Estado activo en móvil - Mejorado con sombreado */
+  /* Botón de Google para MÓVIL - Mejorado */
+  .google-search-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 100 !important;
+    pointer-events: auto !important;
+  }
+
+  /* Activar efectos hover en dispositivos touch */
+  /* Clase JS para detectar touch */
+  .is-touch-device .card,
+  .is-touch-device .card-recomendacion,
+  .is-touch-device .no-results-card,
+  .is-touch-device .form-container {
+    /* Preparar para efectos touch */
+    will-change: transform, box-shadow;
+  }
+
+  /* Sistema de interacción para dispositivos táctiles */
+  /* El efecto se aplica al tocar (touch) */
   .card:active,
   .card-recomendacion:active,
   .no-results-card:active,
   .form-container:active,
-  .touch-device .card.active,
-  .touch-device .card-recomendacion.active,
-  .touch-device .no-results-card.active,
-  .touch-device .form-container.active {
+  .card.touch-active,
+  .card-recomendacion.touch-active,
+  .no-results-card.touch-active,
+  .form-container.touch-active {
     transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    box-shadow: var(--touch-glow-shadow);
   }
 
   .card:active::before,
   .card-recomendacion:active::before,
   .no-results-card:active::before,
   .form-container:active::before,
-  .touch-device .card.active::before,
-  .touch-device .card-recomendacion.active::before,
-  .touch-device .no-results-card.active::before,
-  .touch-device .form-container.active::before {
+  .card.touch-active::before,
+  .card-recomendacion.touch-active::before,
+  .no-results-card.touch-active::before,
+  .form-container.touch-active::before {
     opacity: 0.7;
   }
 
-  /* Form */
+  .card:active .card-image,
+  .card-recomendacion:active img:not(.google-search-btn img),
+  .card.touch-active .card-image,
+  .card-recomendacion.touch-active img:not(.google-search-btn img) {
+    filter: brightness(1.1);
+  }
+
+  .card:active h3,
+  .card.touch-active h3 {
+    color: var(--secondary-color);
+  }
+
+  .card-recomendacion:active .destination-title,
+  .card-recomendacion.touch-active .destination-title {
+    color: var(--secondary-color);
+  }
+
+  /* Form Container - Móvil mejorado */
   .form-container {
     width: 100%;
     background: var(--card-bg);
@@ -1025,6 +1076,7 @@ select:focus {
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
     position: relative;
+    transition: var(--transition);
   }
 
   /* Recommendations Container */
@@ -1045,7 +1097,7 @@ select:focus {
     transform: translateY(0);
   }
 
-  /* Card de recomendación */
+  /* Card de recomendación - Móvil mejorado con consistencia */
   .card-recomendacion,
   .no-results-card {
     width: 100%;
@@ -1053,6 +1105,8 @@ select:focus {
     display: flex;
     flex-direction: column;
     line-height: 1.2;
+    transition: var(--transition);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
   }
 
   .card-recomendacion-content {
@@ -1062,7 +1116,7 @@ select:focus {
     flex-direction: column;
     position: relative;
     overflow-y: auto;
-    z-index: 2; /* Por encima del pseudo-elemento */
+    z-index: 2;
   }
 
   .destination-title {
@@ -1104,9 +1158,11 @@ select:focus {
     font-size: 0.95rem;
   }
 
-  /* Footer */
+  /* Footer móvil mejorado */
   .footer {
     border-radius: 50% 50% 0 0;
+    background-size: 300% 100%;
+    animation: gradientFlow 10s linear infinite;
   }
 
   .footer::before {
