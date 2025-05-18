@@ -1,4 +1,3 @@
-/* ESTILOS COMPARTIDOS PARA AMBAS VERSIONES */
 :root {
   --primary-color: #0080ff;
   --secondary-color: #00ff80;
@@ -13,7 +12,6 @@
     rgba(0, 255, 128, 0.1),
     rgba(247, 218, 0, 0.1)
   );
-  /* Nuevas variables para efectos mejorados */
   --glow-shadow: 0 0 15px rgba(0, 128, 255, 0.5),
     0 0 25px rgba(0, 255, 128, 0.3), 0 0 35px rgba(247, 218, 0, 0.2);
   --card-hover-transform: translateY(-10px) scale(1.02);
@@ -23,7 +21,6 @@
     var(--secondary-color),
     var(--tertiary-color)
   );
-  /* Nueva variable para efectos touch */
   --touch-glow-shadow: 0 0 12px rgba(0, 128, 255, 0.4),
     0 0 22px rgba(0, 255, 128, 0.2), 0 0 30px rgba(247, 218, 0, 0.1);
 }
@@ -34,7 +31,6 @@
   box-sizing: border-box;
 }
 
-/* Scrollbar principal - Desktop */
 ::-webkit-scrollbar {
   width: 14px;
 }
@@ -52,14 +48,12 @@
   background: #0066cc;
 }
 
-/* Responsive scrollbar */
 @media (max-width: 1024px) {
   ::-webkit-scrollbar {
     width: 10px;
   }
 }
 
-/* Scrollbars para contenedores */
 .info-container::-webkit-scrollbar,
 .card-recomendacion-content::-webkit-scrollbar {
   width: 6px;
@@ -97,7 +91,6 @@ body {
   padding: 0 20px;
 }
 
-/* Header Styles */
 .header {
   position: fixed;
   top: 0;
@@ -129,15 +122,49 @@ body {
   pointer-events: none;
 }
 
-.logo-v,
-.animated-phrase .logo-text .logo-v {
+.logo-v {
   color: var(--primary-color);
   font-family: "Orbitron", sans-serif;
   font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 128, 255, 0.7), 0 0 20px rgba(0, 128, 255, 0.5),
+    0 0 30px rgba(0, 128, 255, 0.3);
+  animation: lightning 3s infinite;
+  position: relative;
 }
 
-.logo-ia,
-.animated-phrase .logo-text .logo-ia {
+@keyframes lightning {
+  0%,
+  100% {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(0, 128, 255, 0.7),
+      0 0 20px rgba(0, 128, 255, 0.5);
+  }
+  50% {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(0, 128, 255, 0.7),
+      0 0 20px rgba(0, 128, 255, 0.5);
+  }
+  51%,
+  52% {
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.9),
+      0 0 60px rgba(0, 128, 255, 0.9), 0 0 90px rgba(0, 128, 255, 0.8);
+  }
+  53%,
+  54% {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(0, 128, 255, 0.7),
+      0 0 20px rgba(0, 128, 255, 0.5);
+  }
+  55%,
+  56% {
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.9),
+      0 0 60px rgba(0, 128, 255, 0.9), 0 0 90px rgba(0, 128, 255, 0.8);
+  }
+}
+
+.logo-ia {
   background: linear-gradient(
     to right,
     var(--secondary-color),
@@ -148,11 +175,41 @@ body {
   background-clip: text;
   font-family: "Orbitron", sans-serif;
   font-weight: 700;
+  text-shadow: 0 0 10px rgba(0, 255, 128, 0.7), 0 0 20px rgba(247, 218, 0, 0.5);
+  animation: pulseLogo 2s infinite alternate;
+  animation-delay: 0.5s;
 }
 
-/* Hero Section - Común */
+@keyframes pulseLogo {
+  0% {
+    filter: brightness(1);
+  }
+  100% {
+    filter: brightness(1.5);
+  }
+}
+
+.animated-phrase .logo-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 30px;
+}
+
+.animated-phrase .logo-text .logo-v,
+.animated-phrase .logo-text .logo-ia {
+  color: #ffffff;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  text-shadow: none;
+  background: none;
+  -webkit-text-fill-color: #ffffff;
+  background-clip: unset;
+  animation: none;
+}
+
 .hero {
-  height: 100vh;
+  height: 96vh;
   background-image: url("img/travel.jpg");
   background-size: cover;
   background-position: center center;
@@ -161,11 +218,28 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
-  margin-bottom: 100px;
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+  overflow: visible;
+  margin-bottom: 60px;
+  box-shadow: 0 10px 30px rgba(0, 128, 255, 0.3),
+    0 15px 40px rgba(0, 255, 128, 0.2), 0 20px 50px rgba(247, 218, 0, 0.1);
   will-change: transform;
   font-weight: 500;
+  animation: heroShadowGlow 8s infinite alternate;
+}
+
+@keyframes heroShadowGlow {
+  0% {
+    box-shadow: 0 10px 30px rgba(0, 128, 255, 0.3),
+      0 15px 40px rgba(0, 255, 128, 0.2), 0 20px 50px rgba(247, 218, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 15px 35px rgba(0, 128, 255, 0.4),
+      0 20px 45px rgba(0, 255, 128, 0.3), 0 25px 55px rgba(247, 218, 0, 0.2);
+  }
+  100% {
+    box-shadow: 0 10px 30px rgba(0, 128, 255, 0.3),
+      0 15px 40px rgba(0, 255, 128, 0.2), 0 20px 50px rgba(247, 218, 0, 0.1);
+  }
 }
 
 .hero::before {
@@ -223,14 +297,6 @@ body {
   align-items: center;
 }
 
-.animated-phrase .logo-text {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 10px;
-}
-
-/* Mejorado: Efecto de textos aparecientes */
 @keyframes slideUpFade {
   0%,
   100% {
@@ -302,7 +368,6 @@ body {
   line-height: 0;
 }
 
-/* Sections - Común */
 .features {
   padding: 4rem 0;
 }
@@ -325,7 +390,6 @@ body {
   width: 100%;
 }
 
-/* Cards Básico - Común */
 .card,
 .card-recomendacion,
 .no-results-card {
@@ -345,16 +409,13 @@ body {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
   color: var(--primary-color);
-  /* Mejora: Transición suave del color */
   transition: color 0.3s ease;
 }
 
-/* Efecto de brillo en títulos al hover usando el degradado del footer */
 .card:hover h3 {
   color: var(--secondary-color);
 }
 
-/* Botón de Google - COMÚN para ambas versiones */
 .google-search-btn {
   position: absolute;
   top: 10px;
@@ -372,7 +433,7 @@ body {
   z-index: 10;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   padding: 8px;
-  text-decoration: none; /* Importante para los enlaces <a> */
+  text-decoration: none;
 }
 
 .google-search-btn img {
@@ -383,7 +444,6 @@ body {
   max-height: 18px;
 }
 
-/* Form - Común */
 form {
   display: flex;
   flex-direction: column;
@@ -432,7 +492,6 @@ button:hover {
   background: #0066cc;
 }
 
-/* Tarjetas de recomendación info básica - Común */
 .info-container {
   display: flex;
   flex-direction: column;
@@ -443,11 +502,9 @@ button:hover {
   color: var(--primary-color);
   margin-bottom: 0.2rem;
   line-height: 1.2;
-  /* Mejora: Transición suave */
   transition: all 0.3s ease;
 }
 
-/* Mejora: Efecto hover en título de destino usando degradado del footer */
 .card-recomendacion:hover .destination-title {
   color: var(--secondary-color);
 }
@@ -462,7 +519,6 @@ button:hover {
 .stars {
   color: var(--tertiary-color);
   letter-spacing: 2px;
-  /* Mejora: Animación sutil para estrellas */
   animation: starsTwinkle 3s infinite alternate;
 }
 
@@ -495,7 +551,6 @@ button:hover {
   opacity: 0.7;
 }
 
-/* Footer - Común con animación mejorada */
 .footer {
   position: relative;
   background: linear-gradient(
@@ -584,7 +639,6 @@ button:hover {
   font-family: "Montserrat", sans-serif;
 }
 
-/* Animaciones - Común */
 @keyframes bounce {
   0%,
   20%,
@@ -622,7 +676,6 @@ button:hover {
   }
 }
 
-/* Accessibility - Común */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -635,7 +688,6 @@ button:hover {
   border: 0;
 }
 
-/* Focus Styles - Común */
 a:focus,
 button:focus,
 input:focus,
@@ -644,7 +696,6 @@ select:focus {
   outline-offset: 2px;
 }
 
-/* Print Styles - Común */
 @media print {
   .hero,
   .scroll-indicator,
@@ -664,11 +715,7 @@ select:focus {
   }
 }
 
-/******************************************
- * VERSIÓN DESKTOP (min-width: 769px)
- ******************************************/
 @media (min-width: 769px) {
-  /* Responsive scrollbar */
   ::-webkit-scrollbar {
     width: 14px;
   }
@@ -679,7 +726,6 @@ select:focus {
     }
   }
 
-  /* Hero Section */
   .hero {
     background-attachment: fixed;
     border-radius: 0 0 100px 100px;
@@ -691,8 +737,10 @@ select:focus {
 
   @media (min-width: 1025px) {
     .hero {
-      animation: zoomEffect 20s infinite alternate;
+      animation: zoomEffect 20s infinite alternate,
+        heroShadowGlow 8s infinite alternate;
       background-size: 120% auto;
+      background-position: center center;
     }
 
     @keyframes zoomEffect {
@@ -724,26 +772,22 @@ select:focus {
     opacity: 0.8;
   }
 
-  /* Feature Cards */
   .feature-cards {
     display: flex;
     justify-content: space-between;
     gap: 2rem;
   }
 
-  /* Feature Cards con mismo efecto de sombreado que el form */
   .card,
   .card-recomendacion,
   .no-results-card {
     flex: 1;
-    /* Reemplazar la animación float con la animación de sombreado */
     animation: cardGradientGlow 8s ease-in-out infinite alternate;
     background-position: 0 0;
     background-size: 100% 100%;
     will-change: transform, box-shadow;
   }
 
-  /* Nueva animación de sombreado para cards similar al form pero menos intensa */
   @keyframes cardGradientGlow {
     0% {
       box-shadow: 0 0 12px rgba(0, 128, 255, 0.4),
@@ -762,7 +806,6 @@ select:focus {
     }
   }
 
-  /* Agregar el mismo pseudo-elemento para el degradado animado */
   .card::after,
   .card-recomendacion::after,
   .no-results-card::after {
@@ -780,7 +823,6 @@ select:focus {
     pointer-events: none;
   }
 
-  /* Card Images */
   .card-image,
   .card-recomendacion img:not(.google-search-btn img) {
     width: 100%;
@@ -792,7 +834,6 @@ select:focus {
     z-index: 1;
   }
 
-  /* Asegurar que el contenido esté por encima del efecto */
   .card-content,
   .card-recomendacion-content,
   .no-results-card > * {
@@ -800,7 +841,6 @@ select:focus {
     z-index: 1;
   }
 
-  /* Pseudo-elemento para el efecto hover */
   .card::before,
   .card-recomendacion::before,
   .no-results-card::before,
@@ -818,14 +858,12 @@ select:focus {
     pointer-events: none;
   }
 
-  /* Efecto hover para desktop */
   .card:hover,
   .card-recomendacion:hover,
   .no-results-card:hover,
   .form-container:hover {
     transform: var(--card-hover-transform);
     box-shadow: var(--glow-shadow);
-    /* Anular la animación al hacer hover */
     animation-play-state: paused;
   }
 
@@ -845,13 +883,11 @@ select:focus {
     font-size: 2.5rem;
   }
 
-  /* Google search button hover effect */
   .google-search-btn:hover {
     transform: scale(1.1);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
   }
 
-  /* Form con efecto de degradado múltiple - desktop */
   .form-container {
     width: 100%;
     max-width: 600px;
@@ -884,7 +920,6 @@ select:focus {
     }
   }
 
-  /* Pseudo-elemento para el degradado animado */
   .form-container::after {
     content: "";
     position: absolute;
@@ -929,13 +964,11 @@ select:focus {
     }
   }
 
-  /* Aseguramos que el contenido del formulario esté por encima del efecto */
   .form-container > * {
     position: relative;
     z-index: 1;
   }
 
-  /* Recommendations Container */
   .recommendations-container {
     width: 100%;
     display: grid;
@@ -974,7 +1007,6 @@ select:focus {
     transform: translateY(0);
   }
 
-  /* Card de recomendación */
   .card-recomendacion,
   .no-results-card {
     width: 320px;
@@ -1033,7 +1065,6 @@ select:focus {
     opacity: 0.8;
   }
 
-  /* Footer */
   .footer {
     border-radius: 100% 100% 0 0;
   }
@@ -1043,17 +1074,13 @@ select:focus {
   }
 }
 
-/******************************************
- * VERSIÓN MÓVIL MEJORADA (max-width: 768px)
- ******************************************/
 @media (max-width: 768px) {
-  /* Responsive scrollbar */
   ::-webkit-scrollbar {
     width: 10px;
   }
 
-  /* Hero Section */
   .hero {
+    height: 96vh;
     background-attachment: scroll;
     background-size: cover;
     animation: none;
@@ -1081,19 +1108,16 @@ select:focus {
     opacity: 0.8;
   }
 
-  /* Section titles */
   .section-title {
     font-size: 2rem;
   }
 
-  /* Feature Cards - NUEVA CONFIGURACIÓN MÓVIL MÁS SIMILAR A DESKTOP */
   .feature-cards {
     display: flex;
     flex-direction: column;
     gap: 2rem;
   }
 
-  /* Feature Cards con mismo efecto de sombreado que el form en móvil */
   .card,
   .card-recomendacion,
   .no-results-card {
@@ -1103,7 +1127,6 @@ select:focus {
     will-change: transform, box-shadow;
   }
 
-  /* Nueva animación de sombreado para cards en móvil */
   @keyframes cardGradientGlowMobile {
     0% {
       box-shadow: 0 0 10px rgba(0, 128, 255, 0.3),
@@ -1122,7 +1145,6 @@ select:focus {
     }
   }
 
-  /* Agregar el mismo pseudo-elemento para el degradado animado en móvil */
   .card::after,
   .card-recomendacion::after,
   .no-results-card::after {
@@ -1140,7 +1162,6 @@ select:focus {
     pointer-events: none;
   }
 
-  /* Asegurar que el contenido esté por encima del efecto */
   .card-content,
   .card-recomendacion-content,
   .card-image,
@@ -1150,7 +1171,6 @@ select:focus {
     z-index: 1;
   }
 
-  /* Imágenes */
   .card-image,
   .card-recomendacion img:not(.google-search-btn img) {
     width: 100%;
@@ -1162,7 +1182,6 @@ select:focus {
     z-index: 1;
   }
 
-  /* Pseudo-elementos - actualizados para móvil similar a desktop */
   .card::before,
   .card-recomendacion::before,
   .no-results-card::before,
@@ -1178,10 +1197,9 @@ select:focus {
     transition: var(--transition);
     border-radius: 15px;
     pointer-events: none;
-    z-index: 0; /* Por debajo del contenido */
+    z-index: 0;
   }
 
-  /* Botón de Google para MÓVIL - Mejorado */
   .google-search-btn {
     position: absolute;
     top: 10px;
@@ -1190,18 +1208,13 @@ select:focus {
     pointer-events: auto !important;
   }
 
-  /* Activar efectos hover en dispositivos touch */
-  /* Clase JS para detectar touch */
   .is-touch-device .card,
   .is-touch-device .card-recomendacion,
   .is-touch-device .no-results-card,
   .is-touch-device .form-container {
-    /* Preparar para efectos touch */
     will-change: transform, box-shadow;
   }
 
-  /* Sistema de interacción para dispositivos táctiles */
-  /* El efecto se aplica al tocar (touch) */
   .card:active,
   .card-recomendacion:active,
   .no-results-card:active,
@@ -1212,7 +1225,6 @@ select:focus {
   .form-container.touch-active {
     transform: translateY(-5px);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    /* Pausar la animación al tocar */
     animation-play-state: paused;
   }
 
@@ -1237,7 +1249,6 @@ select:focus {
     color: var(--secondary-color);
   }
 
-  /* Form con efecto de degradado para móvil */
   .form-container {
     width: 100%;
     background: var(--card-bg);
@@ -1265,7 +1276,6 @@ select:focus {
     }
   }
 
-  /* Pseudo-elemento para el degradado animado en móvil */
   .form-container::after {
     content: "";
     position: absolute;
@@ -1310,13 +1320,11 @@ select:focus {
     }
   }
 
-  /* Aseguramos que el contenido del formulario esté por encima del efecto en móvil */
   .form-container > * {
     position: relative;
     z-index: 1;
   }
 
-  /* Recommendations Container */
   .recommendations-container {
     width: 100%;
     display: grid;
@@ -1334,7 +1342,6 @@ select:focus {
     transform: translateY(0);
   }
 
-  /* Card de recomendación */
   .card-recomendacion,
   .no-results-card {
     width: 100%;
@@ -1394,7 +1401,6 @@ select:focus {
     font-size: 0.95rem;
   }
 
-  /* Footer móvil mejorado */
   .footer {
     border-radius: 50% 50% 0 0;
     background-size: 300% 100%;
@@ -1405,9 +1411,9 @@ select:focus {
     border-radius: 50% 50% 0 0;
   }
 
-  /* Ajustes específicos para móviles más pequeños */
   @media (max-width: 480px) {
     .hero {
+      height: 96vh;
       border-radius: 0 0 30px 30px;
     }
 
@@ -1476,7 +1482,6 @@ select:focus {
       border-radius: 35% 35% 0 0;
     }
 
-    /* Tarjetas más compactas para móviles pequeños */
     .card {
       height: auto;
       margin-bottom: 1rem;
@@ -1486,7 +1491,6 @@ select:focus {
       padding: 1.2rem;
     }
 
-    /* Ajustar animación de sombreado para móviles pequeños */
     @keyframes cardGradientGlowMobile {
       0% {
         box-shadow: 0 0 8px rgba(0, 128, 255, 0.3),

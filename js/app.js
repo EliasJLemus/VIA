@@ -1,6 +1,5 @@
 import TravelRecommender from "./model.js";
 
-// Variable para rastrear si los event listeners ya están configurados
 let listenersInitialized = false;
 let recommender = null;
 const ACCESS_KEY = "2cmDGYcpKM2Hexq8AZjD2GE34qKwY_l96jxElLXbUEw";
@@ -84,7 +83,6 @@ async function buscarImagenes(lugar) {
   return "/img/placeholder.jpg";
 }
 
-// Variable para controlar múltiples envíos del formulario
 let isProcessingRecommendations = false;
 
 async function mostrarRecomendaciones(recomendaciones) {
@@ -98,10 +96,8 @@ async function mostrarRecomendaciones(recomendaciones) {
   isProcessingRecommendations = true;
 
   const container = document.getElementById("recomendaciones");
-  // Limpiar el contenedor antes de añadir nuevas recomendaciones
   container.innerHTML = "";
   container.style.display = "grid";
-  // Eliminar clases anteriores
   container.className = "recommendations-container";
 
   if (!recomendaciones || recomendaciones.length === 0) {
@@ -121,10 +117,8 @@ async function mostrarRecomendaciones(recomendaciones) {
     return;
   }
 
-  // Añadir la clase según la cantidad de recomendaciones
   container.classList.add(`recommendations-${recomendaciones.length}`);
 
-  // Usar Promise.all para esperar todas las búsquedas de imágenes en paralelo
   try {
     const cards = await Promise.all(
       recomendaciones.map(async (lugar) => {
@@ -171,13 +165,11 @@ async function mostrarRecomendaciones(recomendaciones) {
       })
     );
 
-    // Añadir todas las cards al contenedor de una vez
     container.innerHTML = cards.join("");
   } catch (error) {
     console.error("Error al crear tarjetas:", error);
   }
 
-  // Hacer visible el contenedor
   container.classList.add("visible");
   isProcessingRecommendations = false;
 }
@@ -189,23 +181,19 @@ function setupEventListeners() {
   const ciudadSelect = document.getElementById("ciudad");
   const form = document.getElementById("recommendationForm");
 
-  // Limpiar listeners anteriores si existieran
   regionSelect.removeEventListener("change", handleRegionChange);
   paisSelect.removeEventListener("change", handlePaisChange);
   form.removeEventListener("submit", handleFormSubmit);
 
-  // Añadir nuevos listeners
   regionSelect.addEventListener("change", handleRegionChange);
   paisSelect.addEventListener("change", handlePaisChange);
   form.addEventListener("submit", handleFormSubmit);
 
-  // Configurar interacción táctil para las cards
   setupTouchInteractions();
 
   console.log("Event listeners configurados correctamente.");
 }
 
-// Funciones separadas para cada manejador de eventos
 function handleRegionChange() {
   const selectedRegion = this.value;
   console.log("Región seleccionada:", selectedRegion);
@@ -288,7 +276,6 @@ async function handleFormSubmit(e) {
   await mostrarRecomendaciones(recomendaciones);
 }
 
-// Función para mejorar interacción táctil con las cards
 function setupTouchInteractions() {
   document.addEventListener("DOMContentLoaded", () => {
     const addTouchClass = () => {
@@ -299,23 +286,18 @@ function setupTouchInteractions() {
 
     addTouchClass();
 
-    // Delegación de eventos para manejar toques en cards
     document.addEventListener(
       "touchstart",
       function (e) {
         const card = e.target.closest(".card, .card-recomendacion");
         if (card) {
-          // Eliminar clase active de todas las cards
           document
             .querySelectorAll(".card.active, .card-recomendacion.active")
             .forEach((el) => {
               if (el !== card) el.classList.remove("active");
             });
 
-          // Toggle clase active en la card tocada
           card.classList.toggle("active");
-
-          // Prevenir comportamiento hover fantasma
           e.preventDefault();
         }
       },
@@ -324,7 +306,6 @@ function setupTouchInteractions() {
   });
 }
 
-// Header scroll effect
 let lastScroll = 0;
 const header = document.querySelector(".header");
 const logo = document.querySelector(".logo");
@@ -339,35 +320,21 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Función para el efecto parallax en el hero
 function setupParallaxEffect() {
   const hero = document.querySelector(".hero");
 
   if (window.innerWidth >= 1025) {
     hero.classList.add("parallax-effect");
-
-    document.addEventListener("mousemove", function (e) {
-      if (hero.classList.contains("parallax-effect")) {
-        let mouseX = e.clientX / window.innerWidth;
-        let mouseY = e.clientY / window.innerHeight;
-
-        let moveX = 20 - mouseX * 40; // -20 a 20px de movimiento
-        let moveY = 20 - mouseY * 40; // -20 a 20px de movimiento
-
-        hero.style.backgroundPosition = `calc(50% + ${moveX}px) calc(50% + ${moveY}px)`;
-      }
-    });
+    // Eliminado el event listener de mousemove para quitar el efecto parallax
   }
 }
 
-// Inicializar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM cargado, inicializando recomendador...");
   initializeRecommender();
-  setupParallaxEffect(); // Añadimos el setup del efecto parallax
+  setupParallaxEffect();
 });
 
-// Reiniciar estado si la página se recarga o vuelve a la navegación
 window.addEventListener("pageshow", (event) => {
   if (event.persisted) {
     console.log("Página restaurada desde caché, reiniciando estado...");
